@@ -7,7 +7,15 @@ Term: Fall 2016
 + Projec title: Lorem ipsum dolor sit amet
 + Team members
 	+ team member 1
+<<<<<<< Updated upstream
 	+ Minghao Dai
+=======
+<<<<<<< HEAD
+	+ Kaisheng Wang
+=======
+	+ Minghao Dai
+>>>>>>> origin/master
+>>>>>>> Stashed changes
 	+ Chencheng Jiang
 	+ Pengfei Wang
 	+ team member 5
