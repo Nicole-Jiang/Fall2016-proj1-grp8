@@ -9,8 +9,6 @@ Term: Fall 2016
 	+ team member 1
 	+ Kaisheng Wang
 	+ Minghao Dai
-<<<<<<< Updated upstream
-=======
 <<<<<<< HEAD
 >>>>>>> origin/master
 >>>>>>> Stashed changes
