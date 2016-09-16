@@ -13,9 +13,6 @@ Term: Fall 2016
 >>>>>>> origin/master
 >>>>>>> Stashed changes
 	+ Chencheng Jiang (test,test)
-=======
->>>>>>> Stashed changes
-	+ Chencheng Jiang
 >>>>>>> origin/master
 	+ Pengfei Wang
 	+ team member 5
