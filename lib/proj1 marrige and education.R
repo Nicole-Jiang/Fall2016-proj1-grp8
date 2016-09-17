@@ -35,14 +35,15 @@ data_edu= list(lowedu,highschool,bachelor, master, phd)
 
 #generate marry-education matrix
 mar_edu= matrix(nrow=5,ncol=4)
-
+rownames(mar_edu) <- c("Low education", "High school", "Bachelor", "Master", "PhD")
+colnames(mar_edu) <- c("Never married", "Once", "Twice", "More than 3 times")
 for(i in 1:5){
   for(j in 1:4){
     mar_edu[i,j]= nrow(subset(data_edu[[i]],MARHT == j-1))
   }
 }
 
-
+balloonplot(t(as.table(mar_edu)), main ="marry and edu", xlab ="", ylab="", label = FALSE, show.margins = FALSE)
 
 
 
