@@ -26,7 +26,7 @@ def Divorce_by_state(part_a, part_b, output_path):
     by_state = by_state.drop(['MARHD','MARHM'],1)
     output = int(filter(str.isdigit, part_a))
     by_state['year'] = output   # add the new year column
-    by_state.to_csv(output_path + str(output) + '.csv')
+    by_state.to_csv(output_path + str(output) + '.csv' , index = False)
 
 
 # test
