@@ -6,6 +6,9 @@ os.chdir('/Users/pengfeiwang/Desktop/Fall2016-proj1-grp8/data/')
 
 # Function
 def Divorce_by_state(part_a, part_b, output_path):
+    '''
+    # only apply for year start from 2008
+    '''
     a = pd.read_csv(part_a,usecols=['MARHD','MARHM','ST'])
     b = pd.read_csv(part_b,usecols=['MARHD','MARHM','ST'])
     state = pd.read_csv('/Users/pengfeiwang/Desktop/Fall2016-proj1-grp8/data/statenames.csv', usecols=['code','abbr'])
@@ -22,6 +25,7 @@ def Divorce_by_state(part_a, part_b, output_path):
     by_state['Divorce_ratio'] = by_state['MARHD'] / by_state['MARHM']
     by_state = by_state.drop(['MARHD','MARHM'],1)
     output = int(filter(str.isdigit, part_a))
+    by_state['year'] = output   # add the new year column
     by_state.to_csv(output_path + str(output) + '.csv')
 
 
