@@ -1,59 +1,53 @@
 library(data.table)
 library(plyr)
+library(ggplot2)
 
-colstokeep_pus <- c("AGEP", "MAR", "SCHL", "FOD1P", "SCIENGRLP")
-dataset_a <- fread('csv_pus/ss14pusa.csv', select= colstokeep_pus)
-dataset_b <- fread('csv_pus/ss14pusb.csv', select= colstokeep_pus)
-data.fm<- data.frame(rbind(dataset_a, dataset_b)[AGEP >18,])
-
-colstokeep_time <- c("MARHD", "MARHM", "MARHT", "JWAP", "JWDP")
+colstokeep_time <- c("MARHD", "MARHM", "MARHT", "JWAP", "JWDP", "SEX", "AEGP")
 T1 <- fread('ss13pusa.csv', select = colstokeep_time, na.strings = "bbb")
 T2 <- fread('ss13pusb.csv', select = colstokeep_time, na.strings = "bbb")
 Tfull <- rbind(T1, T2)
 Tuse <- na.omit(Tfull)
 
-#names(data.fm)
-hist(data.fm[,2])
+Tuse$JWAP_h <- ifelse(Tuse$JWAP %in% c(1:10), 0, 
+                      ifelse(Tuse$JWAP %in% c(11,21), 1, 
+                             ((Tuse$JWAP-22) %/% 12) + 2))
 
-nrow(subset(data.fm, MAR == 5)) / nrow(data.fm) # never married people perportion
+Tuse$JWDP_h <- ifelse(Tuse$JWDP %in% c(1:6), (Tuse$JWDP-1) %/% 2, 
+               ifelse(Tuse$JWDP %in% c(7:18), (Tuse$JWDP-7) %/% 6 + 3, 
+               ifelse(Tuse$JWDP %in% c(19:78), (Tuse$JWDP-19) %/% 12 + 5, 
+               ifelse(Tuse$JWDP %in% c(79:132), (Tuse$JWDP-79) %/% 6 + 10, 
+               ifelse(Tuse$JWDP %in% c(133:136), (Tuse$JWDP-133) %/% 2 + 19, 
+               ifelse(Tuse$JWDP %in% c(137:148), (Tuse$JWDP-137) %/% 6 + 21, 23
+               ))))))
 
-
-T_arrival <- split(Tuse, Tuse$JWAP)
-drate <- sapply(T_arrival, function(C) sum(C$MARHD==1)/nrow(C))
-mrate <- sapply(T_arrival, function(C) sum(C$MARHM==1)/nrow(C))
 
 findrate <- function(x) sum(x==1)/length(x)
-rate <- ddply(Tuse, .(JWAP), summarize, 
-             drate = findrate(MARHD), mrate = findrate(MARHM))
-               
-drate = sum(C$MARHD==1)/nrow(C)
-               mrate = sum(C$MARHM==1)/nrow(C) 
-               return(c(drate, mrate))
-# polygon function
-drawPoly <- function(x, y1, y2) {
-  polygon(c(x, rev(x)), c(y1,  rev(y2)),
-          border = NA, col = "#ff000050")
-}
+rate_arr <- ddply(Tuse, .(JWAP_h, SEX), summarize, 
+            n = length(MARHD), drate = findrate(MARHD), mrate = findrate(MARHM))
 
-# plot
-par(las = 1, fg = "grey")
-with(rate, {
-  plot(drate ~ arrivalTime, 
-       ylim = range(c(q1, q5)), type = "n", 
-       yaxt = "n", xaxt = "n",
-       ylab = "", xlab = "")
-  drawPoly(arrivalTime, q1, q5)
-  drawPoly(arrivalTime, q2, q4)
-  lines(q3 ~ arrivalTime, 
-        col = "black", lwd = 2)
-})
+rate_dep <- ddply(Tuse, .(JWDP_h), summarize, 
+            n = length(MARHD), drate = findrate(MARHD), mrate = findrate(MARHM))            
 
-# decoration
-axis(1, seq(0, 24, by = 4), paste0(seq(0, 24, by = 4), ":00"))
-axis(2)
-mtext("earnings (USD) vs. arrival time at work", 3, 0.5, adj = 0, cex = 2)
-legend("topright", c("median", "0.25-0.75 quantile", "0.4-0.6 quantile"),
-       fill = c(NA, "#ff000075", "#ff000050"), lty = c(1, NA, NA), border = NA,
-       col = c("black", NA, NA), text.col = "black", bty = "n")
+df <- expand.grid(hour = c(12,1:11), period = c("am", "pm"))
+df <- cbind(df, rate_arr[2:4])
+
+
+hour_plot <- ggplot(df, aes(x = factor(hour), y = mrate, fill = period)) +
+  geom_bar(stat = "identity", position = "dodge")
+hour_plot
+
+hour_plot <- hour_plot + coord_polar(theta = "x", start = 0.26)
+hour_plot
+
+hour_plot <- hour_plot + coord_polar(theta = "x", start = 0.26)+
+  xlab("")+ylab("")+
+  theme(axis.ticks = element_blank(), axis.text.y = element_blank(), 
+        panel.background = element_blank(), panel.grid.major.x = element_line(colour="grey"),
+        axis.text.x = element_text(size = 25), legend.title=element_blank())
+hour_plot
+
+hour_plot <- ggplot(rate_arr, aes(x = factor(JWAP_h), y = mrate, fill=as.factor(SEX))) +
+  geom_bar(stat = "identity", position = "dodge")+ coord_polar(theta = "x", start = -0.15)
+hour_plot
 
 
