@@ -1,0 +1,2260 @@
+<!doctype HTML>
+<meta charset = 'utf-8'>
+<html>
+  <head>
+    
+    <script src='/Library/Frameworks/R.framework/Versions/3.2/Resources/library/rMaps/libraries/datamaps/js/d3.v3.min.js' type='text/javascript'></script>
+    <script src='/Library/Frameworks/R.framework/Versions/3.2/Resources/library/rMaps/libraries/datamaps/js/topojson.v1.min.js' type='text/javascript'></script>
+    <script src='/Library/Frameworks/R.framework/Versions/3.2/Resources/library/rMaps/libraries/datamaps/js/datamaps.all.min.js' type='text/javascript'></script>
+    <script src='http://cdnjs.cloudflare.com/ajax/libs/angular.js/1.2.1/angular.min.js' type='text/javascript'></script>
+    
+    <style>
+    .rChart {
+      display: block;
+      margin-left: auto; 
+      margin-right: auto;
+      width: 800px;
+      height: 400px;
+    }  
+    </style>
+    
+  </head>
+  <body ng-app ng-controller='rChartsCtrl'>
+    
+    
+            <div class='container'>
+              <input id='slider' type='range' min=2008 max=2013 ng-model='year' width=200>
+              <span ng-bind='year'></span>
+              <div id='chart131fb52f2fd' class='rChart datamaps'></div>          
+            </div>
+            <script>
+              function rChartsCtrl($scope){
+                $scope.year = 2008;
+                $scope.$watch('year', function(newYear){
+                  mapchart131fb52f2fd.updateChoropleth(chartParams.newData[newYear]);
+                })
+              }
+           </script>    
+    <script id='popup-template' type='text/x-handlebars-template'>
+    
+</script>
+<script>
+  var chartParams = {
+ "dom": "chart131fb52f2fd",
+"width":    800,
+"height":    400,
+"scope": "usa",
+"fills": {
+ "(4.55,6.16]": "#EFF3FF",
+"(6.16,6.97]": "#BDD7E7",
+"(6.97,7.66]": "#6BAED6",
+"(7.66,8.47]": "#3182BD",
+"(8.47,10.4]": "#08519C" 
+},
+"legend": false,
+"labels": true,
+"bodyattrs": "ng-app ng-controller='rChartsCtrl'",
+"newData": {
+ "2008": {
+ "AK": {
+ "Year":   2008,
+"State": "AK",
+"Divorce_Rate": 7.0699,
+"fillKey": "(6.97,7.66]" 
+},
+"AL": {
+ "Year":   2008,
+"State": "AL",
+"Divorce_Rate": 9.7347,
+"fillKey": "(8.47,10.4]" 
+},
+"AR": {
+ "Year":   2008,
+"State": "AR",
+"Divorce_Rate": 9.1584,
+"fillKey": "(8.47,10.4]" 
+},
+"AZ": {
+ "Year":   2008,
+"State": "AZ",
+"Divorce_Rate": 7.8322,
+"fillKey": "(7.66,8.47]" 
+},
+"CA": {
+ "Year":   2008,
+"State": "CA",
+"Divorce_Rate":  6.915,
+"fillKey": "(6.16,6.97]" 
+},
+"CO": {
+ "Year":   2008,
+"State": "CO",
+"Divorce_Rate": 8.2775,
+"fillKey": "(7.66,8.47]" 
+},
+"CT": {
+ "Year":   2008,
+"State": "CT",
+"Divorce_Rate":   6.47,
+"fillKey": "(6.16,6.97]" 
+},
+"DC": {
+ "Year":   2008,
+"State": "DC",
+"Divorce_Rate": 8.3168,
+"fillKey": "(7.66,8.47]" 
+},
+"DE": {
+ "Year":   2008,
+"State": "DE",
+"Divorce_Rate": 8.2275,
+"fillKey": "(7.66,8.47]" 
+},
+"FL": {
+ "Year":   2008,
+"State": "FL",
+"Divorce_Rate": 8.4153,
+"fillKey": "(7.66,8.47]" 
+},
+"GA": {
+ "Year":   2008,
+"State": "GA",
+"Divorce_Rate": 8.4487,
+"fillKey": "(7.66,8.47]" 
+},
+"HI": {
+ "Year":   2008,
+"State": "HI",
+"Divorce_Rate":  5.706,
+"fillKey": "(4.55,6.16]" 
+},
+"IA": {
+ "Year":   2008,
+"State": "IA",
+"Divorce_Rate": 6.5108,
+"fillKey": "(6.16,6.97]" 
+},
+"ID": {
+ "Year":   2008,
+"State": "ID",
+"Divorce_Rate": 7.6055,
+"fillKey": "(6.97,7.66]" 
+},
+"IL": {
+ "Year":   2008,
+"State": "IL",
+"Divorce_Rate": 6.7131,
+"fillKey": "(6.16,6.97]" 
+},
+"IN": {
+ "Year":   2008,
+"State": "IN",
+"Divorce_Rate": 8.6799,
+"fillKey": "(8.47,10.4]" 
+},
+"KS": {
+ "Year":   2008,
+"State": "KS",
+"Divorce_Rate":   8.09,
+"fillKey": "(7.66,8.47]" 
+},
+"KY": {
+ "Year":   2008,
+"State": "KY",
+"Divorce_Rate": 9.8578,
+"fillKey": "(8.47,10.4]" 
+},
+"LA": {
+ "Year":   2008,
+"State": "LA",
+"Divorce_Rate": 7.8176,
+"fillKey": "(7.66,8.47]" 
+},
+"MA": {
+ "Year":   2008,
+"State": "MA",
+"Divorce_Rate":  6.377,
+"fillKey": "(6.16,6.97]" 
+},
+"MD": {
+ "Year":   2008,
+"State": "MD",
+"Divorce_Rate": 7.1875,
+"fillKey": "(6.97,7.66]" 
+},
+"ME": {
+ "Year":   2008,
+"State": "ME",
+"Divorce_Rate": 8.9968,
+"fillKey": "(8.47,10.4]" 
+},
+"MI": {
+ "Year":   2008,
+"State": "MI",
+"Divorce_Rate": 6.7471,
+"fillKey": "(6.16,6.97]" 
+},
+"MN": {
+ "Year":   2008,
+"State": "MN",
+"Divorce_Rate":  6.155,
+"fillKey": "(4.55,6.16]" 
+},
+"MO": {
+ "Year":   2008,
+"State": "MO",
+"Divorce_Rate": 7.9815,
+"fillKey": "(7.66,8.47]" 
+},
+"MS": {
+ "Year":   2008,
+"State": "MS",
+"Divorce_Rate": 9.0884,
+"fillKey": "(8.47,10.4]" 
+},
+"MT": {
+ "Year":   2008,
+"State": "MT",
+"Divorce_Rate": 6.1518,
+"fillKey": "(4.55,6.16]" 
+},
+"NC": {
+ "Year":   2008,
+"State": "NC",
+"Divorce_Rate": 7.0951,
+"fillKey": "(6.97,7.66]" 
+},
+"ND": {
+ "Year":   2008,
+"State": "ND",
+"Divorce_Rate": 5.5589,
+"fillKey": "(4.55,6.16]" 
+},
+"NE": {
+ "Year":   2008,
+"State": "NE",
+"Divorce_Rate": 7.5762,
+"fillKey": "(6.97,7.66]" 
+},
+"NH": {
+ "Year":   2008,
+"State": "NH",
+"Divorce_Rate": 6.6093,
+"fillKey": "(6.16,6.97]" 
+},
+"NJ": {
+ "Year":   2008,
+"State": "NJ",
+"Divorce_Rate": 5.7733,
+"fillKey": "(4.55,6.16]" 
+},
+"NM": {
+ "Year":   2008,
+"State": "NM",
+"Divorce_Rate": 7.2647,
+"fillKey": "(6.97,7.66]" 
+},
+"NV": {
+ "Year":   2008,
+"State": "NV",
+"Divorce_Rate":  9.051,
+"fillKey": "(8.47,10.4]" 
+},
+"NY": {
+ "Year":   2008,
+"State": "NY",
+"Divorce_Rate": 5.5941,
+"fillKey": "(4.55,6.16]" 
+},
+"OH": {
+ "Year":   2008,
+"State": "OH",
+"Divorce_Rate": 7.6152,
+"fillKey": "(6.97,7.66]" 
+},
+"OK": {
+ "Year":   2008,
+"State": "OK",
+"Divorce_Rate": 10.371,
+"fillKey": "(8.47,10.4]" 
+},
+"OR": {
+ "Year":   2008,
+"State": "OR",
+"Divorce_Rate": 8.0602,
+"fillKey": "(7.66,8.47]" 
+},
+"PA": {
+ "Year":   2008,
+"State": "PA",
+"Divorce_Rate": 6.3182,
+"fillKey": "(6.16,6.97]" 
+},
+"RI": {
+ "Year":   2008,
+"State": "RI",
+"Divorce_Rate": 6.5802,
+"fillKey": "(6.16,6.97]" 
+},
+"SC": {
+ "Year":   2008,
+"State": "SC",
+"Divorce_Rate": 7.2525,
+"fillKey": "(6.97,7.66]" 
+},
+"SD": {
+ "Year":   2008,
+"State": "SD",
+"Divorce_Rate":   5.71,
+"fillKey": "(4.55,6.16]" 
+},
+"TN": {
+ "Year":   2008,
+"State": "TN",
+"Divorce_Rate": 9.0571,
+"fillKey": "(8.47,10.4]" 
+},
+"TX": {
+ "Year":   2008,
+"State": "TX",
+"Divorce_Rate": 8.4368,
+"fillKey": "(7.66,8.47]" 
+},
+"UT": {
+ "Year":   2008,
+"State": "UT",
+"Divorce_Rate": 7.7222,
+"fillKey": "(7.66,8.47]" 
+},
+"VA": {
+ "Year":   2008,
+"State": "VA",
+"Divorce_Rate": 8.0188,
+"fillKey": "(7.66,8.47]" 
+},
+"VT": {
+ "Year":   2008,
+"State": "VT",
+"Divorce_Rate": 8.8378,
+"fillKey": "(8.47,10.4]" 
+},
+"WA": {
+ "Year":   2008,
+"State": "WA",
+"Divorce_Rate": 8.5492,
+"fillKey": "(8.47,10.4]" 
+},
+"WI": {
+ "Year":   2008,
+"State": "WI",
+"Divorce_Rate": 6.0992,
+"fillKey": "(4.55,6.16]" 
+},
+"WV": {
+ "Year":   2008,
+"State": "WV",
+"Divorce_Rate": 8.4652,
+"fillKey": "(7.66,8.47]" 
+},
+"WY": {
+ "Year":   2008,
+"State": "WY",
+"Divorce_Rate": 9.0744,
+"fillKey": "(8.47,10.4]" 
+} 
+},
+"2009": {
+ "AK": {
+ "Year":   2009,
+"State": "AK",
+"Divorce_Rate": 6.9692,
+"fillKey": "(6.16,6.97]" 
+},
+"AL": {
+ "Year":   2009,
+"State": "AL",
+"Divorce_Rate": 10.286,
+"fillKey": "(8.47,10.4]" 
+},
+"AR": {
+ "Year":   2009,
+"State": "AR",
+"Divorce_Rate": 9.1635,
+"fillKey": "(8.47,10.4]" 
+},
+"AZ": {
+ "Year":   2009,
+"State": "AZ",
+"Divorce_Rate": 7.9464,
+"fillKey": "(7.66,8.47]" 
+},
+"CA": {
+ "Year":   2009,
+"State": "CA",
+"Divorce_Rate": 6.7276,
+"fillKey": "(6.16,6.97]" 
+},
+"CO": {
+ "Year":   2009,
+"State": "CO",
+"Divorce_Rate":  7.505,
+"fillKey": "(6.97,7.66]" 
+},
+"CT": {
+ "Year":   2009,
+"State": "CT",
+"Divorce_Rate": 6.5775,
+"fillKey": "(6.16,6.97]" 
+},
+"DC": {
+ "Year":   2009,
+"State": "DC",
+"Divorce_Rate": 5.5556,
+"fillKey": "(4.55,6.16]" 
+},
+"DE": {
+ "Year":   2009,
+"State": "DE",
+"Divorce_Rate": 7.2404,
+"fillKey": "(6.97,7.66]" 
+},
+"FL": {
+ "Year":   2009,
+"State": "FL",
+"Divorce_Rate":  7.267,
+"fillKey": "(6.97,7.66]" 
+},
+"GA": {
+ "Year":   2009,
+"State": "GA",
+"Divorce_Rate": 8.7421,
+"fillKey": "(8.47,10.4]" 
+},
+"HI": {
+ "Year":   2009,
+"State": "HI",
+"Divorce_Rate": 5.9925,
+"fillKey": "(4.55,6.16]" 
+},
+"IA": {
+ "Year":   2009,
+"State": "IA",
+"Divorce_Rate": 6.7647,
+"fillKey": "(6.16,6.97]" 
+},
+"ID": {
+ "Year":   2009,
+"State": "ID",
+"Divorce_Rate": 6.6011,
+"fillKey": "(6.16,6.97]" 
+},
+"IL": {
+ "Year":   2009,
+"State": "IL",
+"Divorce_Rate": 6.5321,
+"fillKey": "(6.16,6.97]" 
+},
+"IN": {
+ "Year":   2009,
+"State": "IN",
+"Divorce_Rate":  8.079,
+"fillKey": "(7.66,8.47]" 
+},
+"KS": {
+ "Year":   2009,
+"State": "KS",
+"Divorce_Rate": 7.6605,
+"fillKey": "(6.97,7.66]" 
+},
+"KY": {
+ "Year":   2009,
+"State": "KY",
+"Divorce_Rate": 9.3005,
+"fillKey": "(8.47,10.4]" 
+},
+"LA": {
+ "Year":   2009,
+"State": "LA",
+"Divorce_Rate": 7.6481,
+"fillKey": "(6.97,7.66]" 
+},
+"MA": {
+ "Year":   2009,
+"State": "MA",
+"Divorce_Rate": 5.9054,
+"fillKey": "(4.55,6.16]" 
+},
+"MD": {
+ "Year":   2009,
+"State": "MD",
+"Divorce_Rate": 6.9496,
+"fillKey": "(6.16,6.97]" 
+},
+"ME": {
+ "Year":   2009,
+"State": "ME",
+"Divorce_Rate": 9.2541,
+"fillKey": "(8.47,10.4]" 
+},
+"MI": {
+ "Year":   2009,
+"State": "MI",
+"Divorce_Rate": 7.0855,
+"fillKey": "(6.97,7.66]" 
+},
+"MN": {
+ "Year":   2009,
+"State": "MN",
+"Divorce_Rate": 5.7772,
+"fillKey": "(4.55,6.16]" 
+},
+"MO": {
+ "Year":   2009,
+"State": "MO",
+"Divorce_Rate": 7.7276,
+"fillKey": "(7.66,8.47]" 
+},
+"MS": {
+ "Year":   2009,
+"State": "MS",
+"Divorce_Rate": 8.3569,
+"fillKey": "(7.66,8.47]" 
+},
+"MT": {
+ "Year":   2009,
+"State": "MT",
+"Divorce_Rate": 5.1351,
+"fillKey": "(4.55,6.16]" 
+},
+"NC": {
+ "Year":   2009,
+"State": "NC",
+"Divorce_Rate": 7.4567,
+"fillKey": "(6.97,7.66]" 
+},
+"ND": {
+ "Year":   2009,
+"State": "ND",
+"Divorce_Rate": 5.5899,
+"fillKey": "(4.55,6.16]" 
+},
+"NE": {
+ "Year":   2009,
+"State": "NE",
+"Divorce_Rate":  7.234,
+"fillKey": "(6.97,7.66]" 
+},
+"NH": {
+ "Year":   2009,
+"State": "NH",
+"Divorce_Rate": 6.0671,
+"fillKey": "(4.55,6.16]" 
+},
+"NJ": {
+ "Year":   2009,
+"State": "NJ",
+"Divorce_Rate": 4.7825,
+"fillKey": "(4.55,6.16]" 
+},
+"NM": {
+ "Year":   2009,
+"State": "NM",
+"Divorce_Rate": 8.0782,
+"fillKey": "(7.66,8.47]" 
+},
+"NV": {
+ "Year":   2009,
+"State": "NV",
+"Divorce_Rate": 9.0648,
+"fillKey": "(8.47,10.4]" 
+},
+"NY": {
+ "Year":   2009,
+"State": "NY",
+"Divorce_Rate": 5.6896,
+"fillKey": "(4.55,6.16]" 
+},
+"OH": {
+ "Year":   2009,
+"State": "OH",
+"Divorce_Rate": 7.3433,
+"fillKey": "(6.97,7.66]" 
+},
+"OK": {
+ "Year":   2009,
+"State": "OK",
+"Divorce_Rate": 9.7499,
+"fillKey": "(8.47,10.4]" 
+},
+"OR": {
+ "Year":   2009,
+"State": "OR",
+"Divorce_Rate":  8.044,
+"fillKey": "(7.66,8.47]" 
+},
+"PA": {
+ "Year":   2009,
+"State": "PA",
+"Divorce_Rate": 5.9121,
+"fillKey": "(4.55,6.16]" 
+},
+"RI": {
+ "Year":   2009,
+"State": "RI",
+"Divorce_Rate": 7.6658,
+"fillKey": "(7.66,8.47]" 
+},
+"SC": {
+ "Year":   2009,
+"State": "SC",
+"Divorce_Rate": 6.6046,
+"fillKey": "(6.16,6.97]" 
+},
+"SD": {
+ "Year":   2009,
+"State": "SD",
+"Divorce_Rate": 5.1932,
+"fillKey": "(4.55,6.16]" 
+},
+"TN": {
+ "Year":   2009,
+"State": "TN",
+"Divorce_Rate":   8.47,
+"fillKey": "(7.66,8.47]" 
+},
+"TX": {
+ "Year":   2009,
+"State": "TX",
+"Divorce_Rate": 8.0277,
+"fillKey": "(7.66,8.47]" 
+},
+"UT": {
+ "Year":   2009,
+"State": "UT",
+"Divorce_Rate": 6.6359,
+"fillKey": "(6.16,6.97]" 
+},
+"VA": {
+ "Year":   2009,
+"State": "VA",
+"Divorce_Rate": 7.5241,
+"fillKey": "(6.97,7.66]" 
+},
+"VT": {
+ "Year":   2009,
+"State": "VT",
+"Divorce_Rate": 8.2954,
+"fillKey": "(7.66,8.47]" 
+},
+"WA": {
+ "Year":   2009,
+"State": "WA",
+"Divorce_Rate": 7.7251,
+"fillKey": "(7.66,8.47]" 
+},
+"WI": {
+ "Year":   2009,
+"State": "WI",
+"Divorce_Rate": 6.1644,
+"fillKey": "(6.16,6.97]" 
+},
+"WV": {
+ "Year":   2009,
+"State": "WV",
+"Divorce_Rate": 8.4918,
+"fillKey": "(8.47,10.4]" 
+},
+"WY": {
+ "Year":   2009,
+"State": "WY",
+"Divorce_Rate":  8.848,
+"fillKey": "(8.47,10.4]" 
+} 
+},
+"2010": {
+ "AK": {
+ "Year":   2010,
+"State": "AK",
+"Divorce_Rate": 6.6686,
+"fillKey": "(6.16,6.97]" 
+},
+"AL": {
+ "Year":   2010,
+"State": "AL",
+"Divorce_Rate": 10.019,
+"fillKey": "(8.47,10.4]" 
+},
+"AR": {
+ "Year":   2010,
+"State": "AR",
+"Divorce_Rate": 10.369,
+"fillKey": "(8.47,10.4]" 
+},
+"AZ": {
+ "Year":   2010,
+"State": "AZ",
+"Divorce_Rate": 7.2224,
+"fillKey": "(6.97,7.66]" 
+},
+"CA": {
+ "Year":   2010,
+"State": "CA",
+"Divorce_Rate": 6.2882,
+"fillKey": "(6.16,6.97]" 
+},
+"CO": {
+ "Year":   2010,
+"State": "CO",
+"Divorce_Rate": 7.7215,
+"fillKey": "(7.66,8.47]" 
+},
+"CT": {
+ "Year":   2010,
+"State": "CT",
+"Divorce_Rate": 6.8443,
+"fillKey": "(6.16,6.97]" 
+},
+"DC": {
+ "Year":   2010,
+"State": "DC",
+"Divorce_Rate": 8.2164,
+"fillKey": "(7.66,8.47]" 
+},
+"DE": {
+ "Year":   2010,
+"State": "DE",
+"Divorce_Rate": 7.9291,
+"fillKey": "(7.66,8.47]" 
+},
+"FL": {
+ "Year":   2010,
+"State": "FL",
+"Divorce_Rate": 8.1268,
+"fillKey": "(7.66,8.47]" 
+},
+"GA": {
+ "Year":   2010,
+"State": "GA",
+"Divorce_Rate": 8.4037,
+"fillKey": "(7.66,8.47]" 
+},
+"HI": {
+ "Year":   2010,
+"State": "HI",
+"Divorce_Rate": 6.2431,
+"fillKey": "(6.16,6.97]" 
+},
+"IA": {
+ "Year":   2010,
+"State": "IA",
+"Divorce_Rate": 7.4848,
+"fillKey": "(6.97,7.66]" 
+},
+"ID": {
+ "Year":   2010,
+"State": "ID",
+"Divorce_Rate": 8.6792,
+"fillKey": "(8.47,10.4]" 
+},
+"IL": {
+ "Year":   2010,
+"State": "IL",
+"Divorce_Rate": 6.2179,
+"fillKey": "(6.16,6.97]" 
+},
+"IN": {
+ "Year":   2010,
+"State": "IN",
+"Divorce_Rate":  8.734,
+"fillKey": "(8.47,10.4]" 
+},
+"KS": {
+ "Year":   2010,
+"State": "KS",
+"Divorce_Rate": 7.4942,
+"fillKey": "(6.97,7.66]" 
+},
+"KY": {
+ "Year":   2010,
+"State": "KY",
+"Divorce_Rate": 9.7328,
+"fillKey": "(8.47,10.4]" 
+},
+"LA": {
+ "Year":   2010,
+"State": "LA",
+"Divorce_Rate": 8.0389,
+"fillKey": "(7.66,8.47]" 
+},
+"MA": {
+ "Year":   2010,
+"State": "MA",
+"Divorce_Rate": 5.7727,
+"fillKey": "(4.55,6.16]" 
+},
+"MD": {
+ "Year":   2010,
+"State": "MD",
+"Divorce_Rate": 5.8924,
+"fillKey": "(4.55,6.16]" 
+},
+"ME": {
+ "Year":   2010,
+"State": "ME",
+"Divorce_Rate":  8.179,
+"fillKey": "(7.66,8.47]" 
+},
+"MI": {
+ "Year":   2010,
+"State": "MI",
+"Divorce_Rate": 7.1737,
+"fillKey": "(6.97,7.66]" 
+},
+"MN": {
+ "Year":   2010,
+"State": "MN",
+"Divorce_Rate":  5.235,
+"fillKey": "(4.55,6.16]" 
+},
+"MO": {
+ "Year":   2010,
+"State": "MO",
+"Divorce_Rate": 8.5688,
+"fillKey": "(8.47,10.4]" 
+},
+"MS": {
+ "Year":   2010,
+"State": "MS",
+"Divorce_Rate": 8.1201,
+"fillKey": "(7.66,8.47]" 
+},
+"MT": {
+ "Year":   2010,
+"State": "MT",
+"Divorce_Rate": 6.5226,
+"fillKey": "(6.16,6.97]" 
+},
+"NC": {
+ "Year":   2010,
+"State": "NC",
+"Divorce_Rate": 7.2437,
+"fillKey": "(6.97,7.66]" 
+},
+"ND": {
+ "Year":   2010,
+"State": "ND",
+"Divorce_Rate": 5.5321,
+"fillKey": "(4.55,6.16]" 
+},
+"NE": {
+ "Year":   2010,
+"State": "NE",
+"Divorce_Rate": 6.4405,
+"fillKey": "(6.16,6.97]" 
+},
+"NH": {
+ "Year":   2010,
+"State": "NH",
+"Divorce_Rate": 8.4688,
+"fillKey": "(7.66,8.47]" 
+},
+"NJ": {
+ "Year":   2010,
+"State": "NJ",
+"Divorce_Rate": 5.2537,
+"fillKey": "(4.55,6.16]" 
+},
+"NM": {
+ "Year":   2010,
+"State": "NM",
+"Divorce_Rate": 7.1841,
+"fillKey": "(6.97,7.66]" 
+},
+"NV": {
+ "Year":   2010,
+"State": "NV",
+"Divorce_Rate": 10.183,
+"fillKey": "(8.47,10.4]" 
+},
+"NY": {
+ "Year":   2010,
+"State": "NY",
+"Divorce_Rate": 5.2904,
+"fillKey": "(4.55,6.16]" 
+},
+"OH": {
+ "Year":   2010,
+"State": "OH",
+"Divorce_Rate": 7.5761,
+"fillKey": "(6.97,7.66]" 
+},
+"OK": {
+ "Year":   2010,
+"State": "OK",
+"Divorce_Rate": 9.2749,
+"fillKey": "(8.47,10.4]" 
+},
+"OR": {
+ "Year":   2010,
+"State": "OR",
+"Divorce_Rate": 7.7215,
+"fillKey": "(7.66,8.47]" 
+},
+"PA": {
+ "Year":   2010,
+"State": "PA",
+"Divorce_Rate": 6.0179,
+"fillKey": "(4.55,6.16]" 
+},
+"RI": {
+ "Year":   2010,
+"State": "RI",
+"Divorce_Rate": 6.3883,
+"fillKey": "(6.16,6.97]" 
+},
+"SC": {
+ "Year":   2010,
+"State": "SC",
+"Divorce_Rate": 6.6631,
+"fillKey": "(6.16,6.97]" 
+},
+"SD": {
+ "Year":   2010,
+"State": "SD",
+"Divorce_Rate":  6.925,
+"fillKey": "(6.16,6.97]" 
+},
+"TN": {
+ "Year":   2010,
+"State": "TN",
+"Divorce_Rate": 9.4157,
+"fillKey": "(8.47,10.4]" 
+},
+"TX": {
+ "Year":   2010,
+"State": "TX",
+"Divorce_Rate": 8.1534,
+"fillKey": "(7.66,8.47]" 
+},
+"UT": {
+ "Year":   2010,
+"State": "UT",
+"Divorce_Rate": 8.8217,
+"fillKey": "(8.47,10.4]" 
+},
+"VA": {
+ "Year":   2010,
+"State": "VA",
+"Divorce_Rate": 7.6521,
+"fillKey": "(6.97,7.66]" 
+},
+"VT": {
+ "Year":   2010,
+"State": "VT",
+"Divorce_Rate":  6.582,
+"fillKey": "(6.16,6.97]" 
+},
+"WA": {
+ "Year":   2010,
+"State": "WA",
+"Divorce_Rate": 7.6423,
+"fillKey": "(6.97,7.66]" 
+},
+"WI": {
+ "Year":   2010,
+"State": "WI",
+"Divorce_Rate": 6.0358,
+"fillKey": "(4.55,6.16]" 
+},
+"WV": {
+ "Year":   2010,
+"State": "WV",
+"Divorce_Rate":  8.455,
+"fillKey": "(7.66,8.47]" 
+},
+"WY": {
+ "Year":   2010,
+"State": "WY",
+"Divorce_Rate": 9.1808,
+"fillKey": "(8.47,10.4]" 
+} 
+},
+"2011": {
+ "AK": {
+ "Year":   2011,
+"State": "AK",
+"Divorce_Rate": 7.5071,
+"fillKey": "(6.97,7.66]" 
+},
+"AL": {
+ "Year":   2011,
+"State": "AL",
+"Divorce_Rate": 9.6338,
+"fillKey": "(8.47,10.4]" 
+},
+"AR": {
+ "Year":   2011,
+"State": "AR",
+"Divorce_Rate": 8.6374,
+"fillKey": "(8.47,10.4]" 
+},
+"AZ": {
+ "Year":   2011,
+"State": "AZ",
+"Divorce_Rate": 7.8408,
+"fillKey": "(7.66,8.47]" 
+},
+"CA": {
+ "Year":   2011,
+"State": "CA",
+"Divorce_Rate": 6.2851,
+"fillKey": "(6.16,6.97]" 
+},
+"CO": {
+ "Year":   2011,
+"State": "CO",
+"Divorce_Rate": 7.7914,
+"fillKey": "(7.66,8.47]" 
+},
+"CT": {
+ "Year":   2011,
+"State": "CT",
+"Divorce_Rate": 6.2948,
+"fillKey": "(6.16,6.97]" 
+},
+"DC": {
+ "Year":   2011,
+"State": "DC",
+"Divorce_Rate": 7.0265,
+"fillKey": "(6.97,7.66]" 
+},
+"DE": {
+ "Year":   2011,
+"State": "DE",
+"Divorce_Rate": 5.8928,
+"fillKey": "(4.55,6.16]" 
+},
+"FL": {
+ "Year":   2011,
+"State": "FL",
+"Divorce_Rate": 7.8243,
+"fillKey": "(7.66,8.47]" 
+},
+"GA": {
+ "Year":   2011,
+"State": "GA",
+"Divorce_Rate": 8.1993,
+"fillKey": "(7.66,8.47]" 
+},
+"HI": {
+ "Year":   2011,
+"State": "HI",
+"Divorce_Rate": 4.5547,
+"fillKey": null 
+},
+"IA": {
+ "Year":   2011,
+"State": "IA",
+"Divorce_Rate": 7.2461,
+"fillKey": "(6.97,7.66]" 
+},
+"ID": {
+ "Year":   2011,
+"State": "ID",
+"Divorce_Rate": 7.2868,
+"fillKey": "(6.97,7.66]" 
+},
+"IL": {
+ "Year":   2011,
+"State": "IL",
+"Divorce_Rate": 6.4077,
+"fillKey": "(6.16,6.97]" 
+},
+"IN": {
+ "Year":   2011,
+"State": "IN",
+"Divorce_Rate": 8.6331,
+"fillKey": "(8.47,10.4]" 
+},
+"KS": {
+ "Year":   2011,
+"State": "KS",
+"Divorce_Rate": 8.1079,
+"fillKey": "(7.66,8.47]" 
+},
+"KY": {
+ "Year":   2011,
+"State": "KY",
+"Divorce_Rate": 8.8024,
+"fillKey": "(8.47,10.4]" 
+},
+"LA": {
+ "Year":   2011,
+"State": "LA",
+"Divorce_Rate": 8.0173,
+"fillKey": "(7.66,8.47]" 
+},
+"MA": {
+ "Year":   2011,
+"State": "MA",
+"Divorce_Rate": 5.2312,
+"fillKey": "(4.55,6.16]" 
+},
+"MD": {
+ "Year":   2011,
+"State": "MD",
+"Divorce_Rate": 7.1655,
+"fillKey": "(6.97,7.66]" 
+},
+"ME": {
+ "Year":   2011,
+"State": "ME",
+"Divorce_Rate": 9.0675,
+"fillKey": "(8.47,10.4]" 
+},
+"MI": {
+ "Year":   2011,
+"State": "MI",
+"Divorce_Rate": 7.7152,
+"fillKey": "(7.66,8.47]" 
+},
+"MN": {
+ "Year":   2011,
+"State": "MN",
+"Divorce_Rate": 5.5275,
+"fillKey": "(4.55,6.16]" 
+},
+"MO": {
+ "Year":   2011,
+"State": "MO",
+"Divorce_Rate": 8.1468,
+"fillKey": "(7.66,8.47]" 
+},
+"MS": {
+ "Year":   2011,
+"State": "MS",
+"Divorce_Rate": 8.3181,
+"fillKey": "(7.66,8.47]" 
+},
+"MT": {
+ "Year":   2011,
+"State": "MT",
+"Divorce_Rate": 8.3292,
+"fillKey": "(7.66,8.47]" 
+},
+"NC": {
+ "Year":   2011,
+"State": "NC",
+"Divorce_Rate": 7.3627,
+"fillKey": "(6.97,7.66]" 
+},
+"ND": {
+ "Year":   2011,
+"State": "ND",
+"Divorce_Rate": 5.1524,
+"fillKey": "(4.55,6.16]" 
+},
+"NE": {
+ "Year":   2011,
+"State": "NE",
+"Divorce_Rate": 7.2677,
+"fillKey": "(6.97,7.66]" 
+},
+"NH": {
+ "Year":   2011,
+"State": "NH",
+"Divorce_Rate": 7.2144,
+"fillKey": "(6.97,7.66]" 
+},
+"NJ": {
+ "Year":   2011,
+"State": "NJ",
+"Divorce_Rate":   5.33,
+"fillKey": "(4.55,6.16]" 
+},
+"NM": {
+ "Year":   2011,
+"State": "NM",
+"Divorce_Rate": 7.3317,
+"fillKey": "(6.97,7.66]" 
+},
+"NV": {
+ "Year":   2011,
+"State": "NV",
+"Divorce_Rate": 8.0037,
+"fillKey": "(7.66,8.47]" 
+},
+"NY": {
+ "Year":   2011,
+"State": "NY",
+"Divorce_Rate": 5.7158,
+"fillKey": "(4.55,6.16]" 
+},
+"OH": {
+ "Year":   2011,
+"State": "OH",
+"Divorce_Rate": 6.8399,
+"fillKey": "(6.16,6.97]" 
+},
+"OK": {
+ "Year":   2011,
+"State": "OK",
+"Divorce_Rate": 9.8008,
+"fillKey": "(8.47,10.4]" 
+},
+"OR": {
+ "Year":   2011,
+"State": "OR",
+"Divorce_Rate": 7.3752,
+"fillKey": "(6.97,7.66]" 
+},
+"PA": {
+ "Year":   2011,
+"State": "PA",
+"Divorce_Rate": 5.3656,
+"fillKey": "(4.55,6.16]" 
+},
+"RI": {
+ "Year":   2011,
+"State": "RI",
+"Divorce_Rate": 7.2189,
+"fillKey": "(6.97,7.66]" 
+},
+"SC": {
+ "Year":   2011,
+"State": "SC",
+"Divorce_Rate": 6.7769,
+"fillKey": "(6.16,6.97]" 
+},
+"SD": {
+ "Year":   2011,
+"State": "SD",
+"Divorce_Rate": 8.5551,
+"fillKey": "(8.47,10.4]" 
+},
+"TN": {
+ "Year":   2011,
+"State": "TN",
+"Divorce_Rate": 9.0263,
+"fillKey": "(8.47,10.4]" 
+},
+"TX": {
+ "Year":   2011,
+"State": "TX",
+"Divorce_Rate": 8.1129,
+"fillKey": "(7.66,8.47]" 
+},
+"UT": {
+ "Year":   2011,
+"State": "UT",
+"Divorce_Rate": 6.9547,
+"fillKey": "(6.16,6.97]" 
+},
+"VA": {
+ "Year":   2011,
+"State": "VA",
+"Divorce_Rate": 7.4479,
+"fillKey": "(6.97,7.66]" 
+},
+"VT": {
+ "Year":   2011,
+"State": "VT",
+"Divorce_Rate": 6.9613,
+"fillKey": "(6.16,6.97]" 
+},
+"WA": {
+ "Year":   2011,
+"State": "WA",
+"Divorce_Rate": 8.6293,
+"fillKey": "(8.47,10.4]" 
+},
+"WI": {
+ "Year":   2011,
+"State": "WI",
+"Divorce_Rate": 5.7031,
+"fillKey": "(4.55,6.16]" 
+},
+"WV": {
+ "Year":   2011,
+"State": "WV",
+"Divorce_Rate": 8.9845,
+"fillKey": "(8.47,10.4]" 
+},
+"WY": {
+ "Year":   2011,
+"State": "WY",
+"Divorce_Rate": 8.6237,
+"fillKey": "(8.47,10.4]" 
+} 
+},
+"2012": {
+ "AK": {
+ "Year":   2012,
+"State": "AK",
+"Divorce_Rate": 6.9105,
+"fillKey": "(6.16,6.97]" 
+},
+"AL": {
+ "Year":   2012,
+"State": "AL",
+"Divorce_Rate": 9.1805,
+"fillKey": "(8.47,10.4]" 
+},
+"AR": {
+ "Year":   2012,
+"State": "AR",
+"Divorce_Rate": 9.6838,
+"fillKey": "(8.47,10.4]" 
+},
+"AZ": {
+ "Year":   2012,
+"State": "AZ",
+"Divorce_Rate": 6.8997,
+"fillKey": "(6.16,6.97]" 
+},
+"CA": {
+ "Year":   2012,
+"State": "CA",
+"Divorce_Rate": 5.9177,
+"fillKey": "(4.55,6.16]" 
+},
+"CO": {
+ "Year":   2012,
+"State": "CO",
+"Divorce_Rate": 8.4759,
+"fillKey": "(8.47,10.4]" 
+},
+"CT": {
+ "Year":   2012,
+"State": "CT",
+"Divorce_Rate":  6.322,
+"fillKey": "(6.16,6.97]" 
+},
+"DC": {
+ "Year":   2012,
+"State": "DC",
+"Divorce_Rate": 7.2981,
+"fillKey": "(6.97,7.66]" 
+},
+"DE": {
+ "Year":   2012,
+"State": "DE",
+"Divorce_Rate": 7.0335,
+"fillKey": "(6.97,7.66]" 
+},
+"FL": {
+ "Year":   2012,
+"State": "FL",
+"Divorce_Rate": 8.1452,
+"fillKey": "(7.66,8.47]" 
+},
+"GA": {
+ "Year":   2012,
+"State": "GA",
+"Divorce_Rate": 8.1057,
+"fillKey": "(7.66,8.47]" 
+},
+"HI": {
+ "Year":   2012,
+"State": "HI",
+"Divorce_Rate":  6.288,
+"fillKey": "(6.16,6.97]" 
+},
+"IA": {
+ "Year":   2012,
+"State": "IA",
+"Divorce_Rate": 7.0888,
+"fillKey": "(6.97,7.66]" 
+},
+"ID": {
+ "Year":   2012,
+"State": "ID",
+"Divorce_Rate": 9.0237,
+"fillKey": "(8.47,10.4]" 
+},
+"IL": {
+ "Year":   2012,
+"State": "IL",
+"Divorce_Rate": 6.5798,
+"fillKey": "(6.16,6.97]" 
+},
+"IN": {
+ "Year":   2012,
+"State": "IN",
+"Divorce_Rate": 9.0704,
+"fillKey": "(8.47,10.4]" 
+},
+"KS": {
+ "Year":   2012,
+"State": "KS",
+"Divorce_Rate": 8.7512,
+"fillKey": "(8.47,10.4]" 
+},
+"KY": {
+ "Year":   2012,
+"State": "KY",
+"Divorce_Rate": 9.3588,
+"fillKey": "(8.47,10.4]" 
+},
+"LA": {
+ "Year":   2012,
+"State": "LA",
+"Divorce_Rate": 7.0839,
+"fillKey": "(6.97,7.66]" 
+},
+"MA": {
+ "Year":   2012,
+"State": "MA",
+"Divorce_Rate":  5.918,
+"fillKey": "(4.55,6.16]" 
+},
+"MD": {
+ "Year":   2012,
+"State": "MD",
+"Divorce_Rate": 6.6419,
+"fillKey": "(6.16,6.97]" 
+},
+"ME": {
+ "Year":   2012,
+"State": "ME",
+"Divorce_Rate": 8.1992,
+"fillKey": "(7.66,8.47]" 
+},
+"MI": {
+ "Year":   2012,
+"State": "MI",
+"Divorce_Rate": 7.3539,
+"fillKey": "(6.97,7.66]" 
+},
+"MN": {
+ "Year":   2012,
+"State": "MN",
+"Divorce_Rate":  5.685,
+"fillKey": "(4.55,6.16]" 
+},
+"MO": {
+ "Year":   2012,
+"State": "MO",
+"Divorce_Rate": 7.3979,
+"fillKey": "(6.97,7.66]" 
+},
+"MS": {
+ "Year":   2012,
+"State": "MS",
+"Divorce_Rate": 8.8177,
+"fillKey": "(8.47,10.4]" 
+},
+"MT": {
+ "Year":   2012,
+"State": "MT",
+"Divorce_Rate": 6.9923,
+"fillKey": "(6.97,7.66]" 
+},
+"NC": {
+ "Year":   2012,
+"State": "NC",
+"Divorce_Rate": 7.0211,
+"fillKey": "(6.97,7.66]" 
+},
+"ND": {
+ "Year":   2012,
+"State": "ND",
+"Divorce_Rate": 5.7568,
+"fillKey": "(4.55,6.16]" 
+},
+"NE": {
+ "Year":   2012,
+"State": "NE",
+"Divorce_Rate": 6.4079,
+"fillKey": "(6.16,6.97]" 
+},
+"NH": {
+ "Year":   2012,
+"State": "NH",
+"Divorce_Rate": 6.2365,
+"fillKey": "(6.16,6.97]" 
+},
+"NJ": {
+ "Year":   2012,
+"State": "NJ",
+"Divorce_Rate": 5.4884,
+"fillKey": "(4.55,6.16]" 
+},
+"NM": {
+ "Year":   2012,
+"State": "NM",
+"Divorce_Rate": 7.4351,
+"fillKey": "(6.97,7.66]" 
+},
+"NV": {
+ "Year":   2012,
+"State": "NV",
+"Divorce_Rate": 9.6909,
+"fillKey": "(8.47,10.4]" 
+},
+"NY": {
+ "Year":   2012,
+"State": "NY",
+"Divorce_Rate": 5.9038,
+"fillKey": "(4.55,6.16]" 
+},
+"OH": {
+ "Year":   2012,
+"State": "OH",
+"Divorce_Rate": 7.4029,
+"fillKey": "(6.97,7.66]" 
+},
+"OK": {
+ "Year":   2012,
+"State": "OK",
+"Divorce_Rate": 9.5428,
+"fillKey": "(8.47,10.4]" 
+},
+"OR": {
+ "Year":   2012,
+"State": "OR",
+"Divorce_Rate": 7.8933,
+"fillKey": "(7.66,8.47]" 
+},
+"PA": {
+ "Year":   2012,
+"State": "PA",
+"Divorce_Rate": 6.0184,
+"fillKey": "(4.55,6.16]" 
+},
+"RI": {
+ "Year":   2012,
+"State": "RI",
+"Divorce_Rate": 6.2297,
+"fillKey": "(6.16,6.97]" 
+},
+"SC": {
+ "Year":   2012,
+"State": "SC",
+"Divorce_Rate": 6.9069,
+"fillKey": "(6.16,6.97]" 
+},
+"SD": {
+ "Year":   2012,
+"State": "SD",
+"Divorce_Rate": 6.2053,
+"fillKey": "(6.16,6.97]" 
+},
+"TN": {
+ "Year":   2012,
+"State": "TN",
+"Divorce_Rate": 9.0858,
+"fillKey": "(8.47,10.4]" 
+},
+"TX": {
+ "Year":   2012,
+"State": "TX",
+"Divorce_Rate": 7.8826,
+"fillKey": "(7.66,8.47]" 
+},
+"UT": {
+ "Year":   2012,
+"State": "UT",
+"Divorce_Rate": 7.8017,
+"fillKey": "(7.66,8.47]" 
+},
+"VA": {
+ "Year":   2012,
+"State": "VA",
+"Divorce_Rate": 6.9545,
+"fillKey": "(6.16,6.97]" 
+},
+"VT": {
+ "Year":   2012,
+"State": "VT",
+"Divorce_Rate": 6.4093,
+"fillKey": "(6.16,6.97]" 
+},
+"WA": {
+ "Year":   2012,
+"State": "WA",
+"Divorce_Rate": 7.4458,
+"fillKey": "(6.97,7.66]" 
+},
+"WI": {
+ "Year":   2012,
+"State": "WI",
+"Divorce_Rate": 6.1555,
+"fillKey": "(4.55,6.16]" 
+},
+"WV": {
+ "Year":   2012,
+"State": "WV",
+"Divorce_Rate": 9.2947,
+"fillKey": "(8.47,10.4]" 
+},
+"WY": {
+ "Year":   2012,
+"State": "WY",
+"Divorce_Rate": 9.6154,
+"fillKey": "(8.47,10.4]" 
+} 
+},
+"2013": {
+ "AK": {
+ "Year":   2013,
+"State": "AK",
+"Divorce_Rate": 5.3349,
+"fillKey": "(4.55,6.16]" 
+},
+"AL": {
+ "Year":   2013,
+"State": "AL",
+"Divorce_Rate": 8.7382,
+"fillKey": "(8.47,10.4]" 
+},
+"AR": {
+ "Year":   2013,
+"State": "AR",
+"Divorce_Rate": 8.9216,
+"fillKey": "(8.47,10.4]" 
+},
+"AZ": {
+ "Year":   2013,
+"State": "AZ",
+"Divorce_Rate": 6.8538,
+"fillKey": "(6.16,6.97]" 
+},
+"CA": {
+ "Year":   2013,
+"State": "CA",
+"Divorce_Rate": 5.8831,
+"fillKey": "(4.55,6.16]" 
+},
+"CO": {
+ "Year":   2013,
+"State": "CO",
+"Divorce_Rate": 8.0028,
+"fillKey": "(7.66,8.47]" 
+},
+"CT": {
+ "Year":   2013,
+"State": "CT",
+"Divorce_Rate": 5.3048,
+"fillKey": "(4.55,6.16]" 
+},
+"DC": {
+ "Year":   2013,
+"State": "DC",
+"Divorce_Rate":  7.608,
+"fillKey": "(6.97,7.66]" 
+},
+"DE": {
+ "Year":   2013,
+"State": "DE",
+"Divorce_Rate": 5.9313,
+"fillKey": "(4.55,6.16]" 
+},
+"FL": {
+ "Year":   2013,
+"State": "FL",
+"Divorce_Rate": 7.6426,
+"fillKey": "(6.97,7.66]" 
+},
+"GA": {
+ "Year":   2013,
+"State": "GA",
+"Divorce_Rate": 7.5387,
+"fillKey": "(6.97,7.66]" 
+},
+"HI": {
+ "Year":   2013,
+"State": "HI",
+"Divorce_Rate": 5.1799,
+"fillKey": "(4.55,6.16]" 
+},
+"IA": {
+ "Year":   2013,
+"State": "IA",
+"Divorce_Rate": 6.1602,
+"fillKey": "(6.16,6.97]" 
+},
+"ID": {
+ "Year":   2013,
+"State": "ID",
+"Divorce_Rate": 7.0315,
+"fillKey": "(6.97,7.66]" 
+},
+"IL": {
+ "Year":   2013,
+"State": "IL",
+"Divorce_Rate": 5.3486,
+"fillKey": "(4.55,6.16]" 
+},
+"IN": {
+ "Year":   2013,
+"State": "IN",
+"Divorce_Rate": 8.1069,
+"fillKey": "(7.66,8.47]" 
+},
+"KS": {
+ "Year":   2013,
+"State": "KS",
+"Divorce_Rate": 8.0357,
+"fillKey": "(7.66,8.47]" 
+},
+"KY": {
+ "Year":   2013,
+"State": "KY",
+"Divorce_Rate": 9.1562,
+"fillKey": "(8.47,10.4]" 
+},
+"LA": {
+ "Year":   2013,
+"State": "LA",
+"Divorce_Rate": 7.1257,
+"fillKey": "(6.97,7.66]" 
+},
+"MA": {
+ "Year":   2013,
+"State": "MA",
+"Divorce_Rate":   5.02,
+"fillKey": "(4.55,6.16]" 
+},
+"MD": {
+ "Year":   2013,
+"State": "MD",
+"Divorce_Rate": 6.0813,
+"fillKey": "(4.55,6.16]" 
+},
+"ME": {
+ "Year":   2013,
+"State": "ME",
+"Divorce_Rate": 6.5475,
+"fillKey": "(6.16,6.97]" 
+},
+"MI": {
+ "Year":   2013,
+"State": "MI",
+"Divorce_Rate": 6.4561,
+"fillKey": "(6.16,6.97]" 
+},
+"MN": {
+ "Year":   2013,
+"State": "MN",
+"Divorce_Rate": 4.7283,
+"fillKey": "(4.55,6.16]" 
+},
+"MO": {
+ "Year":   2013,
+"State": "MO",
+"Divorce_Rate": 7.4069,
+"fillKey": "(6.97,7.66]" 
+},
+"MS": {
+ "Year":   2013,
+"State": "MS",
+"Divorce_Rate": 8.2974,
+"fillKey": "(7.66,8.47]" 
+},
+"MT": {
+ "Year":   2013,
+"State": "MT",
+"Divorce_Rate": 6.3285,
+"fillKey": "(6.16,6.97]" 
+},
+"NC": {
+ "Year":   2013,
+"State": "NC",
+"Divorce_Rate": 6.7105,
+"fillKey": "(6.16,6.97]" 
+},
+"ND": {
+ "Year":   2013,
+"State": "ND",
+"Divorce_Rate": 4.7075,
+"fillKey": "(4.55,6.16]" 
+},
+"NE": {
+ "Year":   2013,
+"State": "NE",
+"Divorce_Rate": 5.8402,
+"fillKey": "(4.55,6.16]" 
+},
+"NH": {
+ "Year":   2013,
+"State": "NH",
+"Divorce_Rate": 6.5697,
+"fillKey": "(6.16,6.97]" 
+},
+"NJ": {
+ "Year":   2013,
+"State": "NJ",
+"Divorce_Rate": 5.0277,
+"fillKey": "(4.55,6.16]" 
+},
+"NM": {
+ "Year":   2013,
+"State": "NM",
+"Divorce_Rate": 7.0508,
+"fillKey": "(6.97,7.66]" 
+},
+"NV": {
+ "Year":   2013,
+"State": "NV",
+"Divorce_Rate":  8.524,
+"fillKey": "(8.47,10.4]" 
+},
+"NY": {
+ "Year":   2013,
+"State": "NY",
+"Divorce_Rate": 5.0825,
+"fillKey": "(4.55,6.16]" 
+},
+"OH": {
+ "Year":   2013,
+"State": "OH",
+"Divorce_Rate": 6.7669,
+"fillKey": "(6.16,6.97]" 
+},
+"OK": {
+ "Year":   2013,
+"State": "OK",
+"Divorce_Rate": 8.3724,
+"fillKey": "(7.66,8.47]" 
+},
+"OR": {
+ "Year":   2013,
+"State": "OR",
+"Divorce_Rate": 7.5746,
+"fillKey": "(6.97,7.66]" 
+},
+"PA": {
+ "Year":   2013,
+"State": "PA",
+"Divorce_Rate": 5.2811,
+"fillKey": "(4.55,6.16]" 
+},
+"RI": {
+ "Year":   2013,
+"State": "RI",
+"Divorce_Rate": 6.4984,
+"fillKey": "(6.16,6.97]" 
+},
+"SC": {
+ "Year":   2013,
+"State": "SC",
+"Divorce_Rate": 6.5459,
+"fillKey": "(6.16,6.97]" 
+},
+"SD": {
+ "Year":   2013,
+"State": "SD",
+"Divorce_Rate": 5.0343,
+"fillKey": "(4.55,6.16]" 
+},
+"TN": {
+ "Year":   2013,
+"State": "TN",
+"Divorce_Rate": 8.5958,
+"fillKey": "(8.47,10.4]" 
+},
+"TX": {
+ "Year":   2013,
+"State": "TX",
+"Divorce_Rate": 7.6065,
+"fillKey": "(6.97,7.66]" 
+},
+"UT": {
+ "Year":   2013,
+"State": "UT",
+"Divorce_Rate": 6.1104,
+"fillKey": "(4.55,6.16]" 
+},
+"VA": {
+ "Year":   2013,
+"State": "VA",
+"Divorce_Rate":  6.912,
+"fillKey": "(6.16,6.97]" 
+},
+"VT": {
+ "Year":   2013,
+"State": "VT",
+"Divorce_Rate": 5.0094,
+"fillKey": "(4.55,6.16]" 
+},
+"WA": {
+ "Year":   2013,
+"State": "WA",
+"Divorce_Rate": 6.9835,
+"fillKey": "(6.97,7.66]" 
+},
+"WI": {
+ "Year":   2013,
+"State": "WI",
+"Divorce_Rate": 5.7039,
+"fillKey": "(4.55,6.16]" 
+},
+"WV": {
+ "Year":   2013,
+"State": "WV",
+"Divorce_Rate": 7.8826,
+"fillKey": "(7.66,8.47]" 
+},
+"WY": {
+ "Year":   2013,
+"State": "WY",
+"Divorce_Rate": 7.5498,
+"fillKey": "(6.97,7.66]" 
+} 
+} 
+},
+"data": {
+ "AK": {
+ "Year":   2008,
+"State": "AK",
+"Divorce_Rate": 7.0699,
+"fillKey": "(6.97,7.66]" 
+},
+"AL": {
+ "Year":   2008,
+"State": "AL",
+"Divorce_Rate": 9.7347,
+"fillKey": "(8.47,10.4]" 
+},
+"AR": {
+ "Year":   2008,
+"State": "AR",
+"Divorce_Rate": 9.1584,
+"fillKey": "(8.47,10.4]" 
+},
+"AZ": {
+ "Year":   2008,
+"State": "AZ",
+"Divorce_Rate": 7.8322,
+"fillKey": "(7.66,8.47]" 
+},
+"CA": {
+ "Year":   2008,
+"State": "CA",
+"Divorce_Rate":  6.915,
+"fillKey": "(6.16,6.97]" 
+},
+"CO": {
+ "Year":   2008,
+"State": "CO",
+"Divorce_Rate": 8.2775,
+"fillKey": "(7.66,8.47]" 
+},
+"CT": {
+ "Year":   2008,
+"State": "CT",
+"Divorce_Rate":   6.47,
+"fillKey": "(6.16,6.97]" 
+},
+"DC": {
+ "Year":   2008,
+"State": "DC",
+"Divorce_Rate": 8.3168,
+"fillKey": "(7.66,8.47]" 
+},
+"DE": {
+ "Year":   2008,
+"State": "DE",
+"Divorce_Rate": 8.2275,
+"fillKey": "(7.66,8.47]" 
+},
+"FL": {
+ "Year":   2008,
+"State": "FL",
+"Divorce_Rate": 8.4153,
+"fillKey": "(7.66,8.47]" 
+},
+"GA": {
+ "Year":   2008,
+"State": "GA",
+"Divorce_Rate": 8.4487,
+"fillKey": "(7.66,8.47]" 
+},
+"HI": {
+ "Year":   2008,
+"State": "HI",
+"Divorce_Rate":  5.706,
+"fillKey": "(4.55,6.16]" 
+},
+"IA": {
+ "Year":   2008,
+"State": "IA",
+"Divorce_Rate": 6.5108,
+"fillKey": "(6.16,6.97]" 
+},
+"ID": {
+ "Year":   2008,
+"State": "ID",
+"Divorce_Rate": 7.6055,
+"fillKey": "(6.97,7.66]" 
+},
+"IL": {
+ "Year":   2008,
+"State": "IL",
+"Divorce_Rate": 6.7131,
+"fillKey": "(6.16,6.97]" 
+},
+"IN": {
+ "Year":   2008,
+"State": "IN",
+"Divorce_Rate": 8.6799,
+"fillKey": "(8.47,10.4]" 
+},
+"KS": {
+ "Year":   2008,
+"State": "KS",
+"Divorce_Rate":   8.09,
+"fillKey": "(7.66,8.47]" 
+},
+"KY": {
+ "Year":   2008,
+"State": "KY",
+"Divorce_Rate": 9.8578,
+"fillKey": "(8.47,10.4]" 
+},
+"LA": {
+ "Year":   2008,
+"State": "LA",
+"Divorce_Rate": 7.8176,
+"fillKey": "(7.66,8.47]" 
+},
+"MA": {
+ "Year":   2008,
+"State": "MA",
+"Divorce_Rate":  6.377,
+"fillKey": "(6.16,6.97]" 
+},
+"MD": {
+ "Year":   2008,
+"State": "MD",
+"Divorce_Rate": 7.1875,
+"fillKey": "(6.97,7.66]" 
+},
+"ME": {
+ "Year":   2008,
+"State": "ME",
+"Divorce_Rate": 8.9968,
+"fillKey": "(8.47,10.4]" 
+},
+"MI": {
+ "Year":   2008,
+"State": "MI",
+"Divorce_Rate": 6.7471,
+"fillKey": "(6.16,6.97]" 
+},
+"MN": {
+ "Year":   2008,
+"State": "MN",
+"Divorce_Rate":  6.155,
+"fillKey": "(4.55,6.16]" 
+},
+"MO": {
+ "Year":   2008,
+"State": "MO",
+"Divorce_Rate": 7.9815,
+"fillKey": "(7.66,8.47]" 
+},
+"MS": {
+ "Year":   2008,
+"State": "MS",
+"Divorce_Rate": 9.0884,
+"fillKey": "(8.47,10.4]" 
+},
+"MT": {
+ "Year":   2008,
+"State": "MT",
+"Divorce_Rate": 6.1518,
+"fillKey": "(4.55,6.16]" 
+},
+"NC": {
+ "Year":   2008,
+"State": "NC",
+"Divorce_Rate": 7.0951,
+"fillKey": "(6.97,7.66]" 
+},
+"ND": {
+ "Year":   2008,
+"State": "ND",
+"Divorce_Rate": 5.5589,
+"fillKey": "(4.55,6.16]" 
+},
+"NE": {
+ "Year":   2008,
+"State": "NE",
+"Divorce_Rate": 7.5762,
+"fillKey": "(6.97,7.66]" 
+},
+"NH": {
+ "Year":   2008,
+"State": "NH",
+"Divorce_Rate": 6.6093,
+"fillKey": "(6.16,6.97]" 
+},
+"NJ": {
+ "Year":   2008,
+"State": "NJ",
+"Divorce_Rate": 5.7733,
+"fillKey": "(4.55,6.16]" 
+},
+"NM": {
+ "Year":   2008,
+"State": "NM",
+"Divorce_Rate": 7.2647,
+"fillKey": "(6.97,7.66]" 
+},
+"NV": {
+ "Year":   2008,
+"State": "NV",
+"Divorce_Rate":  9.051,
+"fillKey": "(8.47,10.4]" 
+},
+"NY": {
+ "Year":   2008,
+"State": "NY",
+"Divorce_Rate": 5.5941,
+"fillKey": "(4.55,6.16]" 
+},
+"OH": {
+ "Year":   2008,
+"State": "OH",
+"Divorce_Rate": 7.6152,
+"fillKey": "(6.97,7.66]" 
+},
+"OK": {
+ "Year":   2008,
+"State": "OK",
+"Divorce_Rate": 10.371,
+"fillKey": "(8.47,10.4]" 
+},
+"OR": {
+ "Year":   2008,
+"State": "OR",
+"Divorce_Rate": 8.0602,
+"fillKey": "(7.66,8.47]" 
+},
+"PA": {
+ "Year":   2008,
+"State": "PA",
+"Divorce_Rate": 6.3182,
+"fillKey": "(6.16,6.97]" 
+},
+"RI": {
+ "Year":   2008,
+"State": "RI",
+"Divorce_Rate": 6.5802,
+"fillKey": "(6.16,6.97]" 
+},
+"SC": {
+ "Year":   2008,
+"State": "SC",
+"Divorce_Rate": 7.2525,
+"fillKey": "(6.97,7.66]" 
+},
+"SD": {
+ "Year":   2008,
+"State": "SD",
+"Divorce_Rate":   5.71,
+"fillKey": "(4.55,6.16]" 
+},
+"TN": {
+ "Year":   2008,
+"State": "TN",
+"Divorce_Rate": 9.0571,
+"fillKey": "(8.47,10.4]" 
+},
+"TX": {
+ "Year":   2008,
+"State": "TX",
+"Divorce_Rate": 8.4368,
+"fillKey": "(7.66,8.47]" 
+},
+"UT": {
+ "Year":   2008,
+"State": "UT",
+"Divorce_Rate": 7.7222,
+"fillKey": "(7.66,8.47]" 
+},
+"VA": {
+ "Year":   2008,
+"State": "VA",
+"Divorce_Rate": 8.0188,
+"fillKey": "(7.66,8.47]" 
+},
+"VT": {
+ "Year":   2008,
+"State": "VT",
+"Divorce_Rate": 8.8378,
+"fillKey": "(8.47,10.4]" 
+},
+"WA": {
+ "Year":   2008,
+"State": "WA",
+"Divorce_Rate": 8.5492,
+"fillKey": "(8.47,10.4]" 
+},
+"WI": {
+ "Year":   2008,
+"State": "WI",
+"Divorce_Rate": 6.0992,
+"fillKey": "(4.55,6.16]" 
+},
+"WV": {
+ "Year":   2008,
+"State": "WV",
+"Divorce_Rate": 8.4652,
+"fillKey": "(7.66,8.47]" 
+},
+"WY": {
+ "Year":   2008,
+"State": "WY",
+"Divorce_Rate": 9.0744,
+"fillKey": "(8.47,10.4]" 
+} 
+},
+"id": "chart131fb52f2fd" 
+}
+  chartParams.element = document.getElementById('chart131fb52f2fd')
+  
+  
+  var mapchart131fb52f2fd = new Datamap(chartParams);
+  
+  
+    
+  // draw a bubble map if specified
+  if (chartParams.bubbles) {
+    var bubbles = chartParams.bubbles
+    mapchart131fb52f2fd.bubbles(bubbles)
+  }
+  
+  if (chartParams.labels){
+    mapchart131fb52f2fd.labels()
+  }
+  
+  if (chartParams.legend){
+    mapchart131fb52f2fd.legend()
+  }
+  
+  setProjection = function( element, options ) {
+    var projection, path;
+ 
+      projection = d3.geo.albersUsa()
+        .scale(element.offsetWidth)
+        .translate([element.offsetWidth / 2, element.offsetHeight / 2]);
+ 
+    path = d3.geo.path()
+      .projection( projection );
+ 
+    return {path: path, projection: projection};
+  }
+</script>
+
+<style>
+.datamaps {
+  position: relative;
+}
+</style>
+    
+    <script></script>    
+  </body>
+</html>
