@@ -22,10 +22,11 @@ def Divorce_by_state(part_a, part_b, output_path):
     MARHM_state = grouped.MARHM.sum().to_frame()
     MARHD_state = grouped.MARHD.sum().to_frame()
     by_state = pd.merge(MARHM_state, MARHD_state, left_index=True, right_index=True)
-    by_state['Divorce_rate'] = by_state['MARHD'] / by_state.shape[0] * 1000
+    by_state['Divorce_ratio'] = by_state['MARHD'] / by_state['MARHM']
+    by_state = by_state.drop(['MARHD','MARHM'],1)
     output = int(filter(str.isdigit, part_a))
-    by_state['year'] = 2000 + output   
-    by_state.to_csv(output_path + "Divorce_rate_" + str(output) + '.csv' , index = False)
+    by_state['Year'] = 2000 + output   # add the new year column
+    by_state.to_csv(output_path + str(output) + '.csv' , index = False)
 
 
 # test
