@@ -46,7 +46,7 @@ for(i in 1:5){
 #####################################################
 #draw the balloonplot
 balloonplot(t(as.table(mar_edu)), main ="Marriage and Education level", xlab ="Marriage", ylab="Education level",
-             dotsize = 6, text.size= 0.7, label = FALSE, show.margins = FALSE)
+             dotsize = 8, text.size= 0.7, label = FALSE, show.margins = FALSE)
 #http://www.sthda.com/english/wiki/correspondence-analysis-in-r-the-ultimate-guide-for-the-analysis-
 #the-visualization-and-the-interpretation-r-software-and-data-mining#at_pco=smlwn-1.0&at_si=57dd7e521
 #65dfc04&at_ab=per-2&at_pos=0&at_tot=1
@@ -60,19 +60,21 @@ library(TraMineR)
 library(pipeR)
 
 edu= subset(data.fm, select= c("MARHT","SCHL"))
+edu[,1]= as.character(edu[,1])
 edu_test= edu[1:10000,] ### 数据量太大，先跑10000行，之后再说吧
+edu_test[,1]= sapply(edu_test[,1], paste, "times")
 
 for(i in 1:nrow(edu_test)){
   if(edu_test[i,2]<15){
-    edu_test[i,2]="L"
+    edu_test[i,2]="Low edu"
   }else if(edu_test[i,2]>=16 & edu_test[i,2]<=20){
-    edu_test[i,2]="H"
+    edu_test[i,2]="High school"
   }else if(edu_test[i,2]==21){
-    edu_test[i,2]="B"
+    edu_test[i,2]="Bachelor"
   }else if(edu_test[i,2]==22|edu_test[i,2]==23){
-    edu_test[i,2]="M"
+    edu_test[i,2]="Master"
   }else{
-    edu_test[i,2]="P"
+    edu_test[i,2]="PhD"
   }
   #if(i%%1000==0){
   #  print(i)
