@@ -1,4 +1,4 @@
-#setwd("~/Documents/Courses/ADS/Project 1")
+setwd("~/Documents/Courses/ADS/Project 1")
 # libraries we need
 # install necessary package
 #install.packages('devtools')
@@ -59,14 +59,15 @@ library(sunburstR)
 library(TraMineR)
 library(pipeR)
 library(RColorBrewer)
+library(stringr)
 
 edu= subset(data.fm, select= c("MARHT","SCHL","SCIENGRLP"))
 #edu[,1]= as.character(edu[,1])
 edu[,1]= sapply(edu[,1], paste, "time(s)")
-#clean <- function(x){ if(x==0) return (0) else if(x==1) return(1) else return(2)}
-#edu[,3]=sapply(edu[,3],clean)
+#sci <- function(x){ if(x==1) return ("STEM") else if(x==2) return("Non-STEM")}
+#edu[,3]=sapply(edu[,3],sci)
 edu_test= edu[1:10000,] ### 数据量太大，先跑10000行，之后再说吧
-#edu_test[,3]=sapply(edu_test[,3],clean)
+#edu_test[,3]=apply(edu_test[,3],1,sci)
 
 for(i in 1:nrow(edu_test)){
   if(edu_test[i,2]<15){
@@ -94,9 +95,13 @@ sun_edu.fm=data.frame(name,freq)
 ###
 sun_edu.fm[,1]= as.character(sun_edu.fm[,1])
 sun_edu.fm[,1]= str_replace_all(sun_edu.fm[,1],"-0"," ")
+sun_edu.fm[,1]= str_replace_all(sun_edu.fm[,1],"-1","-STEM")
+sun_edu.fm[,1]= str_replace_all(sun_edu.fm[,1],"-2","-Non_STEM")
 #sun_edu.fm[1,1]= "1 time(s)-Highschool"
 #sun_edu.fm[2,1]= "0 time(s)-Highschool"
 ###
 
-cols=brewer.pal(8,"Spectral")
-sunburst(sun_edu.fm, colors=cols )
+
+cols=brewer.pal(11,"Set3")
+sunburst(sun_edu.fm,colors=cols)
+
