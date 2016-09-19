@@ -1,0 +1,59 @@
+---
+title: 'Title'
+author : 'Team: Code Go Gold'
+output: html_document
+---
+## Introduction
+
+##### A research conducted by David Popenoe, a sociologist at Rutgers University, asserted that fifty percent of marriages will end in divorce. Actually, divorce is both very personal and all too common. But there are many myths about divorce. Therefore, in this markdown we mainly focus on the divorce rate in the United States, as well we would provide some simple tips or advice to the next generations. 
+
+
+## Set the environment
+```{r lib, message=F, include=T}
+# add all the lib you use
+library(rMaps)
+library(data.table)
+
+```
+
+## General Picture of the Divorce Rate
+```{r code = ichoropleth, echo=F, message=F, include=F}
+path = '/Users/pengfeiwang/Desktop/Fall2016-proj1-grp8/output/Divorce_Rate/Divorce_rate_total.csv'
+rate = fread(path)
+rate = subset(rate, Year != 2014)
+r1 = ichoropleth(Divorce_Rate ~ State, ncuts =5, rate, animate = "Year", legend = FALSE)
+r1$save(destfile = 'general.html')
+```
+
+```{r, echo=FALSE}
+htmltools::includeHTML("file:///Users/pengfeiwang/Desktop/Fall2016-proj1-grp8/figs/general.html")
+```
+
+###### This choropleth encodes divorce rates per 1000 population for successive 12-monthe period from 2008 with a quantize scale ranging from 0 to 11%. As we can see, the divorce rate is continuously decreasing for almost half decade in every states. However, the absolute value remains very high.
+
+
+
+
+## viz1
+```{r}
+# Chencheng's Part
+
+```
+
+
+
+
+## viz2
+```{r}
+# Minghao's Part
+
+```
+
+
+
+## viz3
+```{r}
+# Kaisheng's Part
+
+```
+
