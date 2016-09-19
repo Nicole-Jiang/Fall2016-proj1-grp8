@@ -58,6 +58,7 @@ balloonplot(t(as.table(mar_edu)), main ="Marriage and Education level", xlab ="M
 library(sunburstR)
 library(TraMineR)
 library(pipeR)
+library(RColorBrewer)
 
 edu= subset(data.fm, select= c("MARHT","SCHL","SCIENGRLP"))
 #edu[,1]= as.character(edu[,1])
@@ -92,9 +93,10 @@ sun_edu.fm=data.frame(name,freq)
 
 ###
 sun_edu.fm[,1]= as.character(sun_edu.fm[,1])
-sun_edu.fm[,1]= str_replace_all(sun_edu.fm[,1],"-0","")
-sun_edu.fm[1,1]= "1 time(s)-Highschool"
-sun_edu.fm[2,1]= "0 time(s)-Highschool"
+sun_edu.fm[,1]= str_replace_all(sun_edu.fm[,1],"-0"," ")
+#sun_edu.fm[1,1]= "1 time(s)-Highschool"
+#sun_edu.fm[2,1]= "0 time(s)-Highschool"
 ###
 
-sunburst(sun_edu.fm)
+cols=brewer.pal(8,"Spectral")
+sunburst(sun_edu.fm, colors=cols )
