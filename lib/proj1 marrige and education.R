@@ -8,7 +8,7 @@
 library("FactoMineR")
 library("factoextra")
 library("gplots")
-library(data.table)
+library("data.table")
 
 # data cleansing
 colstokeep_pus <- c("AGEP", "MAR", "MARHT", "SCHL", "FOD1P", "SCIENGRLP")
@@ -59,16 +59,19 @@ library(sunburstR)
 library(TraMineR)
 library(pipeR)
 
-edu= subset(data.fm, select= c("MARHT","SCHL"))
-edu[,1]= as.character(edu[,1])
+edu= subset(data.fm, select= c("MARHT","SCHL","SCIENGRLP"))
+#edu[,1]= as.character(edu[,1])
+edu[,1]= sapply(edu[,1], paste, "time(s)")
+#clean <- function(x){ if(x==0) return (0) else if(x==1) return(1) else return(2)}
+#edu[,3]=sapply(edu[,3],clean)
 edu_test= edu[1:10000,] ### 数据量太大，先跑10000行，之后再说吧
-edu_test[,1]= sapply(edu_test[,1], paste, "times")
+#edu_test[,3]=sapply(edu_test[,3],clean)
 
 for(i in 1:nrow(edu_test)){
   if(edu_test[i,2]<15){
-    edu_test[i,2]="Low edu"
+    edu_test[i,2]="Lowedu"
   }else if(edu_test[i,2]>=16 & edu_test[i,2]<=20){
-    edu_test[i,2]="High school"
+    edu_test[i,2]="Highschool"
   }else if(edu_test[i,2]==21){
     edu_test[i,2]="Bachelor"
   }else if(edu_test[i,2]==22|edu_test[i,2]==23){
@@ -84,7 +87,14 @@ for(i in 1:nrow(edu_test)){
 edu.seq <- seqdef(edu_test)
 sun_edu=seqtab(edu.seq, tlim = 0, format = "STS" )
 name=names(attributes(as.list(sun_edu))$weights)
-freq=attributes(as.list(sun_edu))$freq[,2]
+freq=as.numeric(attributes(as.list(sun_edu))$freq[,2])
 sun_edu.fm=data.frame(name,freq)
-sunburst(sun_edu.fm)
 
+###
+sun_edu.fm[,1]= as.character(sun_edu.fm[,1])
+sun_edu.fm[,1]= str_replace_all(sun_edu.fm[,1],"-0","")
+sun_edu.fm[1,1]= "1 time(s)-Highschool"
+sun_edu.fm[2,1]= "0 time(s)-Highschool"
+###
+
+sunburst(sun_edu.fm)
