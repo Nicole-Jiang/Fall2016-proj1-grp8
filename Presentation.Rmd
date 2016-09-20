@@ -103,7 +103,7 @@ for(i in 1:nrow(edu_test)){
   }
 }
 
-#prepare for sunburst plot
+#prepare for the sunburst plot
 edu.seq <- seqdef(edu_test)
 sun_edu=seqtab(edu.seq, tlim = 0, format = "STS" )
 name=names(attributes(as.list(sun_edu))$weights)

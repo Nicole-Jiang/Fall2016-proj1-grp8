@@ -97,11 +97,6 @@ sun_edu.fm[,1]= as.character(sun_edu.fm[,1])
 sun_edu.fm[,1]= str_replace_all(sun_edu.fm[,1],"-0"," ")
 sun_edu.fm[,1]= str_replace_all(sun_edu.fm[,1],"-1","-STEM")
 sun_edu.fm[,1]= str_replace_all(sun_edu.fm[,1],"-2","-Non_STEM")
-#sun_edu.fm[1,1]= "1 time(s)-Highschool"
-#sun_edu.fm[2,1]= "0 time(s)-Highschool"
-###
-
-
 cols=c(brewer.pal(4,"Set2"),brewer.pal(8,"Set3"))
 sunburst(sun_edu.fm,colors=cols)
 
