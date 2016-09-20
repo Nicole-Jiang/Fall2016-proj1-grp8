@@ -1,8 +1,9 @@
 library(data.table)
 library(plyr)
 library(ggplot2)
+library(plotly)
 
-colstokeep_time <- c("MARHD", "MARHM", "MARHT", "JWAP", "JWDP", "SEX", "AEGP", "PERNP")
+colstokeep_time <- c("MARHD", "MARHM", "JWAP", "JWDP", "SEX", "AEGP", "PERNP", "RAC1P", "ST")
 T1 <- fread('ss13pusa.csv', select = colstokeep_time, na.strings = c("bbb", "bbbbbbb"))
 T2 <- fread('ss13pusb.csv', select = colstokeep_time, na.strings = c("bbb", "bbbbbbb"))
 Tfull <- rbind(T1, T2)
@@ -84,3 +85,31 @@ earn_sex <- ggplot(rate_earn_transfer,
   scale_fill_discrete(labels=c("Male", "Female"))+
   theme(legend.justification=c(1,1), legend.position=c(1,1))
 earn_sex
+
+###race region
+Tuse$race <- as.factor(ifelse(Tuse$RAC1P %in% c(1,2,6,9), Tuse$RAC1P, 
+             ifelse(Tuse$RAC1P %in% c(3,4,5), 3, 7)))
+
+levels(Tuse$race) <- c("White", "Black or African American", 
+                "American Indian or Alaska Native", "Asian", "Some Other Race", 
+                "Two or More Races")
+
+Tuse$state <- as.factor(ifelse(Tuse$ST == 11, 24, Tuse$ST))
+
+levels(Tuse$state) <- state.region
+
+rate_race <- ddply(Tuse, .(race, state), summarize, 
+             n = length(MARHD), drate = findrate(MARHD), mrate = findrate(MARHM))
+rate_race$"sq_n" <- sqrt(rate_race$n)
+names(rate_race)[4] <- "divorce_rate"
+names(rate_race)[5] <- "marriage_rate"
+
+
+plot_ly(d, x = carat, y = price, text = paste("Clarity: ", clarity),
+        mode = "markers", color = carat, size = carat)
+
+p <- plot_ly(rate_race, x = divorce_rate, y = marriage_rate, text = paste("Division: ", state), 
+        mode = "markers", color = race, size = sq_n)
+p %>% layout(legend = list(x = 0, y = 1))
+
+
