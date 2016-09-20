@@ -41,12 +41,11 @@ r1$save(destfile = 'general.html')
 
 
 
-###### The following part is a general summary of of the relationsip between marrige times and education levels. Here, education level is accounted as one's highest degree. In the first ballon fig, we can see that in every education level, those who has never divorced accunt for the largest group. Also, the trend are the same: population decreases as the divorce time increases. But one interesting thing is that the "never divorce" and "divorce once" group sizes in Low education and Master level are almost the same. However, the "divorce twice" and ">3 time divorce" groups in Low education level are much larger than they are in Master level.
+###### The following part is a general summary of of the relationsip between marriage times and education levels. Here, education level is accounted as one's highest degree. In the first ballon fig, we can see that in every education level, those who has never divorced accunt for the largest group. Also, the trend are the same: population decreases as the divorce time increases. But one interesting thing is that the "never divorce" and "divorce once" group sizes in Low education and Master level are almost the same. However, the "divorce twice" and ">3 time divorce" groups in Low education level are much larger than they are in Master level.
 
-###### For the sunburst fig, the innermost circle showes proportion of different divorce times, the middel circle shows the education level, and the outermost circle shows the major, whether it's STEM or not. As we can see, the never divorced group accounts for 64% of the total married people. For most of us, who are master of STEM students, stays in blue-light orange part. So we probably end up with never divorce or divorce once(never divorce 0.758%, divorce once 0.254%) but will never divorce more than twice
 
-## viz1
-```{r code}
+## Education / Major
+```{r code, echo=F, message=F, include=F}
 # Chencheng's Part
 #setwd("~/Documents/Courses/ADS/Project 1")
 # data cleansing
@@ -69,7 +68,7 @@ phd= subset(data.fm, SCHL==24)
 data_edu= list(lowedu,highschool,bachelor, master, phd)
 
 #####################################################
-#generate marry-education matrix
+# generate marry-education matrix
 div_edu= matrix(nrow=5,ncol=4)
 rownames(div_edu) <- c("Low education", "High school", "Bachelor", "Master", "PhD")
 colnames(div_edu) <- c("Never", "Once", "Twice", ">3 times")
@@ -79,13 +78,19 @@ for(i in 1:5){
   }
 }
 
-#####################################################
-#draw the balloonplot
-balloonplot(t(as.table(div_edu)), main ="Divorce and Education level", xlab ="Divorce", ylab="Education level",
-             dotsize = 8, text.size= 0.7, label = F, show.margins = FALSE)
-#####################################################
-#draw the sunburst plot
+```
 
+```{r balloonplot, echo=T}
+# draw the balloonplot
+balloonplot(data = t(as.table(div_edu)), 
+            main ="Divorce and Education level", 
+            xlab ="Divorce", ylab="Education level",
+            dotsize = 8, text.size= 0.7, label = F, 
+            show.margins = FALSE)
+```
+
+```{r sunburst_code, echo=F, message=F, include=F}
+# draw the sunburst plot
 edu= subset(data.fm, select= c("DIV","SCHL","SCIENGRLP"))
 edu[,1]= sapply(edu[,1], paste, "time(s)")
 edu_test= edu ## mark ##
@@ -115,11 +120,12 @@ sun_edu.fm[,1]= str_replace_all(sun_edu.fm[,1],"-2","-Non_STEM")
 
 cols=c(brewer.pal(6,"Set2"),brewer.pal(6,"Set3"))
 sunburst(sun_edu.fm,colors=cols)
-
 ```
 
-### 
-```{r viz}
+###### For the sunburst fig, the innermost circle shows proportion of different divorce times, the middel circle shows the education level, and the outermost circle shows the major, whether it's STEM or not. As we can see, the never divorced group accounts for 64% of the total married people. For most of us, who are master of STEM students, stays in blue-light orange part. So we probably end up with never divorce or divorce once (never divorce 0.758%, divorce once 0.254%) but will never divorce more than twice
+
+```{r sunburst, echo=T}
+# add the link to the html
 
 ```
 
