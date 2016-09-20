@@ -46,7 +46,7 @@ for(i in 1:5){
 #####################################################
 #draw the balloonplot
 balloonplot(t(as.table(mar_edu)), main ="Marriage and Education level", xlab ="Marriage", ylab="Education level",
-             dotsize = 8, text.size= 0.7, label = FALSE, show.margins = FALSE)
+             dotsize = 8, text.size= 0.7, label = TRUE, show.margins = FALSE)
 #http://www.sthda.com/english/wiki/correspondence-analysis-in-r-the-ultimate-guide-for-the-analysis-
 #the-visualization-and-the-interpretation-r-software-and-data-mining#at_pco=smlwn-1.0&at_si=57dd7e521
 #65dfc04&at_ab=per-2&at_pos=0&at_tot=1
@@ -102,6 +102,6 @@ sun_edu.fm[,1]= str_replace_all(sun_edu.fm[,1],"-2","-Non_STEM")
 ###
 
 
-cols=brewer.pal(11,"Set3")
+cols=c(brewer.pal(4,"Set2"),brewer.pal(8,"Set3"))
 sunburst(sun_edu.fm,colors=cols)
 
