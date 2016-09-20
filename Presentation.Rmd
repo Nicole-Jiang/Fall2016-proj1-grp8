@@ -43,7 +43,7 @@ r1$save(destfile = 'general.html')
 
 ###### The following part is a general summary of of the relationsip between marrige times and education levels. Here, education level is accounted as one's highest degree. In the first ballon fig, we can see that in every education level, those who has never divorced accunt for the largest group. Also, the trend are the same: population decreases as the divorce time increases. But one interesting thing is that the "never divorce" and "divorce once" group sizes in Low education and Master level are almost the same. However, the "divorce twice" and ">3 time divorce" groups in Low education level are much larger than they are in Master level.
 
-###### For the sunburst fig, the innermost circle showes proportion of different divorce times, the middel circle shows the education level, and the outermost circle shows the major, whether it's STEM or not. As we can see, the never divorced group accounts for 58% of the total married people. For most of us, who are master of STEM students, stays in yellow-light orange part. So we probably end up with never divorce or divorce once(never divorce 0.5%, divorce once 0.27% and) .
+###### For the sunburst fig, the innermost circle showes proportion of different divorce times, the middel circle shows the education level, and the outermost circle shows the major, whether it's STEM or not. As we can see, the never divorced group accounts for 64% of the total married people. For most of us, who are master of STEM students, stays in blue-light orange part. So we probably end up with never divorce or divorce once(never divorce 0.758%, divorce once 0.254%) but will never divorce more than twice
 
 ## viz1
 ```{r code}
