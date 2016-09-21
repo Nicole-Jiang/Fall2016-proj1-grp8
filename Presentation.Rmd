@@ -13,6 +13,18 @@ output: html_document
 # add all the lib you use
 library(rMaps)
 library(data.table)
+library("FactoMineR")
+library("factoextra")
+library("gplots")
+library(sunburstR)
+library(TraMineR)
+library(pipeR)
+library(RColorBrewer)
+library(stringr)
+library(data.table)
+library(plyr)
+library(ggplot2)
+library(plotly)
 
 ```
 
@@ -25,30 +37,201 @@ r1 = ichoropleth(Divorce_Rate ~ State, ncuts =5, rate, animate = "Year", legend 
 r1$save(destfile = 'general.html')
 ```
 
-```{r, echo=FALSE}
-htmltools::includeHTML("file:///Users/pengfeiwang/Desktop/Fall2016-proj1-grp8/figs/general.html")
+```{r viz, echo=FALSE}
+# htmltools::includeHTML("file:///Users/pengfeiwang/Desktop/Fall2016-proj1-grp8/figs/general.html")
 ```
 
 ###### This choropleth encodes divorce rates per 1000 population for successive 12-monthe period from 2008 with a quantize scale ranging from 0 to 11%. As we can see, the divorce rate is continuously decreasing for almost half decade in every states. However, the absolute value remains very high.
 
 
 
+###### The following part is a general summary of of the relationsip between marriage times and education levels. Here, education level is accounted as one's highest degree. In the first ballon fig, we can see that in every education level, those who has never divorced accunt for the largest group. Also, the trend are the same: population decreases as the divorce time increases. But one interesting thing is that the "never divorce" and "divorce once" group sizes in Low education and Master level are almost the same. However, the "divorce twice" and ">3 time divorce" groups in Low education level are much larger than they are in Master level.
 
-## viz1
-```{r}
+
+## Education / Major
+```{r code, echo=F, message=F, include=F}
 # Chencheng's Part
+#setwd("~/Documents/Courses/ADS/Project 1")
+# data cleansing
+colstokeep_pus <- c("AGEP", "MSP", "MARHT", "SCHL", "FOD1P", "SCIENGRLP")
+dataset_a <- fread('csv_pus/ss14pusa.csv', select= colstokeep_pus)
+dataset_b <- fread('csv_pus/ss14pusb.csv', select= colstokeep_pus)
+data.fm<- data.frame(rbind(dataset_a, dataset_b)[AGEP >18,])
+data.fm <- data.fm[!is.na(data.fm[,"MARHT"]),]
+data.fm$DIV=data.fm$MARHT-1
+data.fm$DIV[data.fm$MSP==4]=data.fm$DIV[data.fm$MSP==4]+1
+data.fm[is.na(data.fm)] <- 0
+
+#####################################################
+# education level calculation
+lowedu= subset(data.fm, SCHL<=15) #lower than high school
+highschool= subset(data.fm, SCHL>= 16 & SCHL<= 20) #including high school, GED, Associate's degree or enter the college without degree
+bachelor= subset(data.fm, SCHL==21) 
+master= subset(data.fm, SCHL==22| SCHL ==23) #including master and professional degree
+phd= subset(data.fm, SCHL==24)
+data_edu= list(lowedu,highschool,bachelor, master, phd)
+
+#####################################################
+# generate marry-education matrix
+div_edu= matrix(nrow=5,ncol=4)
+rownames(div_edu) <- c("Low education", "High school", "Bachelor", "Master", "PhD")
+colnames(div_edu) <- c("Never", "Once", "Twice", ">3 times")
+for(i in 1:5){
+  for(j in 1:4){
+    div_edu[i,j]= nrow(subset(data_edu[[i]],DIV == j-1))
+  }
+}
+
+```
+
+```{r balloonplot, echo=T}
+# draw the balloonplot
+balloonplot(data = t(as.table(div_edu)), 
+            main ="Divorce and Education level", 
+            xlab ="Divorce", ylab="Education level",
+            dotsize = 8, text.size= 0.7, label = F, 
+            show.margins = FALSE)
+```
+
+```{r sunburst_code, echo=F, message=F, include=F}
+# draw the sunburst plot
+edu= subset(data.fm, select= c("DIV","SCHL","SCIENGRLP"))
+edu[,1]= sapply(edu[,1], paste, "time(s)")
+edu_test= edu ## mark ##
+for(i in 1:nrow(edu_test)){
+  if(edu_test[i,2]<15){
+    edu_test[i,2]="Lowedu"
+  }else if(edu_test[i,2]>=16 & edu_test[i,2]<=20){
+    edu_test[i,2]="Highschool"
+  }else if(edu_test[i,2]==21){
+    edu_test[i,2]="Bachelor"
+  }else if(edu_test[i,2]==22|edu_test[i,2]==23){
+    edu_test[i,2]="Master"
+  }else{
+    edu_test[i,2]="PhD"
+  }
+}
+
+#prepare for the sunburst plot
+edu.seq <- seqdef(edu_test)
+sun_edu=seqtab(edu.seq, tlim = 0, format = "STS" )
+name=names(attributes(as.list(sun_edu))$weights)
+freq=as.numeric(attributes(as.list(sun_edu))$freq[,2])
+sun_edu.fm=data.frame(name,freq)
+sun_edu.fm[,1]= str_replace_all(sun_edu.fm[,1],"-0"," ")
+sun_edu.fm[,1]= str_replace_all(sun_edu.fm[,1],"-1","-STEM")
+sun_edu.fm[,1]= str_replace_all(sun_edu.fm[,1],"-2","-Non_STEM")
+
+cols=c(brewer.pal(6,"Set2"),brewer.pal(6,"Set3"))
+sunburst(sun_edu.fm,colors=cols)
+```
+
+###### For the sunburst fig, the innermost circle shows proportion of different divorce times, the middel circle shows the education level, and the outermost circle shows the major, whether it's STEM or not. As we can see, the never divorced group accounts for 64% of the total married people. For most of us, who are master of STEM students, stays in blue-light orange part. So we probably end up with never divorce or divorce once (never divorce 0.758%, divorce once 0.254%) but will never divorce more than twice
+
+```{r sunburst, echo=T}
+# add the link to the html
 
 ```
 
 
 
-
-## viz2
-```{r}
+## Useful data extraction
+```{r, message=FALSE, warning=FALSE}
 # Minghao's Part
+colstokeep_time <- c("MARHD", "MARHM", "JWAP", "JWDP", "SEX", "AEGP", "PERNP", "RAC1P", "ST")
+T1 <- fread('ss13pusa.csv', select = colstokeep_time, na.strings = c("bbb", "bbbbbbb"))
+T2 <- fread('ss13pusb.csv', select = colstokeep_time, na.strings = c("bbb", "bbbbbbb"))
+Tfull <- rbind(T1, T2)
+Tuse <- na.omit(Tfull)
+```
+
+## Time of arrival at work and Sex
+```{r, message=FALSE, warning=FALSE}
+Tuse$SEX <- as.factor(Tuse$SEX)
+
+Tuse$JWAP_h <- ifelse(Tuse$JWAP %in% c(1:10), 0, 
+                      ifelse(Tuse$JWAP %in% c(11,21), 1, 
+                             ((Tuse$JWAP-22) %/% 12) + 2))
+
+findrate <- function(x) sum(x==1)/length(x)
+rate_arr <- ddply(Tuse, .(JWAP_h, SEX), summarize, 
+            n = length(MARHD), drate = findrate(MARHD), mrate = findrate(MARHM))
+
+
+hour_sex_marry <- ggplot(rate_arr, aes(x = factor(JWAP_h), y = mrate, fill=SEX)) +
+  geom_bar(stat = "identity", position = "dodge", alpha = 0.8)+  
+  coord_polar(theta = "x", start = -0.13)+
+  xlab("Time arrival at work") + ylab("Marriage rate")+
+  scale_fill_discrete(labels=c("Male", "Female"))+
+  theme(legend.justification=c(1,0), legend.position=c(1,0), 
+        text = element_text(size=15))
+
+hour_sex_marry  
+  
+hour_sex_divorce <- ggplot(rate_arr, aes(x = factor(JWAP_h), y = drate, fill=SEX)) +
+  geom_bar(stat = "identity", position = "dodge", alpha = 0.8)+ 
+  coord_polar(theta = "x", start = -0.13)+
+  xlab("Time arrival at work") + ylab("Divorce rate")+
+  scale_fill_discrete(labels=c("Male", "Female"))+
+  theme(legend.justification=c(1,0), legend.position=c(1,0), 
+        text = element_text(size=15))
+
+hour_sex_divorce
 
 ```
 
+## Earning and Sex
+```{r, message=FALSE, warning=FALSE}
+Tuse$earning <- ifelse(Tuse$PERNP %in% c(-9000:0), 0, 
+                ifelse(Tuse$PERNP %in% c(0:104000), round(Tuse$PERNP/10000), 
+                ifelse(Tuse$PERNP %in% c(104000:504000), "10-50", "50+")))
+Tuse$earning <- factor(Tuse$earning, levels=c(as.character(0:10), "10-50", "50+"))
+
+rate_earn <- ddply(Tuse, .(earning, SEX), summarize, 
+                  n = length(MARHD), drate = findrate(MARHD), mrate = findrate(MARHM))
+
+rate_earn_transfer <- rbind(data.frame(type="marry", rate_earn[, c(1:3)], rate=rate_earn[,5]),
+                            data.frame(type="divorce", rate_earn[, c(1:3)], rate=-rate_earn[,4]))
+
+earn_sex <- ggplot(rate_earn_transfer, 
+  aes(x = earning, y = rate, group = SEX, fill = SEX)) +
+  geom_bar(stat = "identity", position = "dodge")+ 
+  geom_hline(yintercept = 0)+
+  xlab("Total person's earnings (in 10k dollars)") + ylab("Marriage and Divorce rate")+
+  scale_fill_discrete(labels=c("Male", "Female"))+
+  theme(legend.justification=c(1,1), legend.position=c(1,1))
+earn_sex
+
+```
+
+## Race and Region
+```{r, message=FALSE, warning=FALSE}
+Tuse$race <- as.factor(ifelse(Tuse$RAC1P %in% c(1,2,6,9), Tuse$RAC1P, 
+             ifelse(Tuse$RAC1P %in% c(3,4,5), 3, 7)))
+
+levels(Tuse$race) <- c("White", "Black or African American", 
+                "American Indian or Alaska Native", "Asian", "Some Other Race", 
+                "Two or More Races")
+
+Tuse$state <- as.factor(ifelse(Tuse$ST == 11, 24, Tuse$ST))
+
+levels(Tuse$state) <- state.region
+
+rate_race <- ddply(Tuse, .(race, state), summarize, 
+             n = length(MARHD), drate = findrate(MARHD), mrate = findrate(MARHM))
+rate_race$"sq_n" <- sqrt(rate_race$n)
+names(rate_race)[4] <- "divorce_rate"
+names(rate_race)[5] <- "marriage_rate"
+
+
+plot_ly(d, x = carat, y = price, text = paste("Clarity: ", clarity),
+        mode = "markers", color = carat, size = carat)
+
+p <- plot_ly(rate_race, x = divorce_rate, y = marriage_rate, text = paste("Division: ", state), 
+        mode = "markers", color = race, size = sq_n)
+p %>% layout(legend = list(x = 0, y = 1))
+
+```
 
 
 ## viz3
