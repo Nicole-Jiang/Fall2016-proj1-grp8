@@ -84,7 +84,7 @@ for(i in 1:5){
 # draw the sunburst plot
 edu= subset(data.fm, select= c("DIV","SCHL","SCIENGRLP"))
 edu[,1]= sapply(edu[,1], paste, "time(s)")
-edu_test= edu 
+edu_test= edu[sample(nrow(edu),100000,replace = F),] 
 for(i in 1:nrow(edu_test)){
   if(edu_test[i,2]<15){
     edu_test[i,2]="Lowedu"
