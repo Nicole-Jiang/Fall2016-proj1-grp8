@@ -285,7 +285,7 @@ Income_Divrate<- ggplot(Data_Income_Divrate, aes(x = factor(Income), y = Div_rat
                      coord_polar(theta = "x") + 
                      xlab("Income Level") + ylab("Divorce rate")
 ```
-[Income_Divrate](https://github.com/TZstatsADS/Fall2016-proj1-grp8/blob/master/figs/income%20divorce%20rate.png)
+![Income_Divrate](https://github.com/TZstatsADS/Fall2016-proj1-grp8/blob/master/figs/income%20divorce%20rate.png)
 
 From the plot, we can know that the low-income and mid-income groups have almost the same divorce rate but the high-income have the lower dicorce rate.
 
