@@ -255,9 +255,6 @@ names(rate_race)[4] <- "divorce_rate"
 names(rate_race)[5] <- "marriage_rate"
 
 
-plot_ly(d, x = carat, y = price, text = paste("Clarity: ", clarity),
-        mode = "markers", color = carat, size = carat)
-
 p <- plot_ly(rate_race, x = divorce_rate, y = marriage_rate, text = paste("Division: ", state), 
         mode = "markers", color = race, size = sq_n)
 p %>% layout(legend = list(x = 0, y = 1))
