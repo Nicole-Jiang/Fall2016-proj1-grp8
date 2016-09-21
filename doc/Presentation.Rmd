@@ -29,6 +29,9 @@ library(foreach)
 library(gridExtra)
 ```
 
+## Scratch Data
+In python code [Click Here!](https://github.com/TZstatsADS/Fall2016-proj1-grp8/blob/master/lib/Scrapper_data.py)
+
 ## General Picture of the Divorce Rate
 ```{r code = ichoropleth, echo=F, message=F, include=F}
 path = '/Users/pengfeiwang/Desktop/Fall2016-proj1-grp8/output/Divorce_Rate/Divorce_rate_total.csv'
@@ -39,7 +42,7 @@ r1$save(destfile = 'general.html')
 ```
 
 ```{r viz, echo=T}
-htmltools::includeHTML("file:///Users/pengfeiwang/Desktop/Fall2016-proj1-grp8/figs/general.html")
+htmltools::includeHTML("https://github.com/TZstatsADS/Fall2016-proj1-grp8/blob/master/figs/general.html")
 ```
 
 This choropleth encodes divorce rates per 1000 population for successive 12-monthe period from 2008 with a quantize scale ranging from 0 to 11%. As we can see, the divorce rate is continuously decreasing for almost half decade in every states. However, the absolute value remains at a high rate. 
@@ -116,7 +119,7 @@ sunburst(sun_edu.fm,colors=cols)
 
 ```{r sunburst, echo=T}
 # add the link to the html
-htmltools::includeHTML("file:///Users/pengfeiwang/Desktop/Fall2016-proj1-grp8/figs/Sunburst.html")
+htmltools::includeHTML("https://github.com/TZstatsADS/Fall2016-proj1-grp8/blob/master/figs/Sunburst.html")
 ```
 
 For the sunburst fig, the innermost circle shows proportion of different divorce times, the middel circle shows the education level, and the outermost circle shows the major, whether it's STEM or not. As we can see, the never divorced group accounts for 64% of the total married people. For most of us, who are master of STEM students, stays in blue-light orange part. So we probably end up with never divorce or divorce once (never divorce 0.758%, divorce once 0.254%) but will never divorce more than twice
@@ -160,11 +163,11 @@ hour_sex_divorce
 
 The number on the outer circle is the time arrival at work from 0 am to 23 pm, the height of each bar refers to the marriage/divorce rate in the two plots. 
 
-1. From the marriage rate plot, men usually have higher marriage rates than women, especially for the men who arrive at 11-16. On the other hand, from the divorce rate plot, women usually have higher divorce rate than men. Unfortunately, This implies that women are more likely to divorce and hardly to marry than men. 
+- From the marriage rate plot, men usually have higher marriage rates than women, especially for the men who arrive at 11-16. On the other hand, from the divorce rate plot, women usually have higher divorce rate than men. Unfortunately, This implies that women are more likely to divorce and hardly to marry than men. 
 
-2. In the divorce rate plot, the women who work from 1 am have the largest divorce rate. This makes sense, but the other reason for this is that compared with the persons who work from 7 am - 9 am, there are far fewer persons who work at midnight, so the variance is much bigger and the rate is sensitive to outliers. 
+- In the divorce rate plot, the women who work from 1 am have the largest divorce rate. This makes sense, but the other reason for this is that compared with the persons who work from 7 am - 9 am, there are far fewer persons who work at midnight, so the variance is much bigger and the rate is sensitive to outliers. 
 
-3. Comparing this two plots, for the persons who work from regular time (7am - 9am), they have smaller marriage rate as well as smaller divorce rate than persons working from other time. This implies that people with a steady work are also likely have a steady marriage. 
+- Comparing this two plots, for the persons who work from regular time (7am - 9am), they have smaller marriage rate as well as smaller divorce rate than persons working from other time. This implies that people with a steady work are also likely have a steady marriage. 
 
 ## Earning and Sex
 ```{r, message=FALSE, warning=FALSE}
@@ -196,11 +199,11 @@ earn_sex
 
 The x axis represents the personal earnings, the barplot above x axis refers to the marriage rate, and the below part refers to the divorce rate. 
 
-1. It's reasonable to see that for all earning levels and each sex, the marriage rate is always larger than the divorce rate. 
+- It's reasonable to see that for all earning levels and each sex, the marriage rate is always larger than the divorce rate. 
 
-2. The more people's earning, the smaller their marriage and divorce rate. This makes sense, since the people with a steady work are also likely have a steady marriage. 
+- The more people's earning, the smaller their marriage and divorce rate. This makes sense, since the people with a steady work are also likely have a steady marriage. 
 
-3. The men with lower earnings (10k - 30k) are more likely to marry than a women with same earnings. This may imply that women don't look down on men who have lower earning, and at the same time, the men with lower earning have more free time and they are more likely to find a partner and get married
+- The men with lower earnings (10k - 30k) are more likely to marry than a women with same earnings. This may imply that women don't look down on men who have lower earning, and at the same time, the men with lower earning have more free time and they are more likely to find a partner and get married
 
 
 ## Race and Region
@@ -231,15 +234,14 @@ p %>% layout(legend = list(x = 0, y = 1))
 
 The x axis is divorce rate, the y axis is marriage rate, the color refers to different races, the size of the bubbles is proportional to square root of sample size in each category, and we also investigate different region effects. 
 
-1. In general, the asians have the lowest divorce rate, the whites higher and the black or African American people have relatively highest divorce rate. For the other races, since there are less samples, so the variance is bigger. 
+- In general, the asians have the lowest divorce rate, the whites higher and the black or African American people have relatively highest divorce rate. For the other races, since there are less samples, so the variance is bigger. 
 
-2. The asians in northeast have the lowest divorce rate, and the southern people with more than two races have the highest divorce rate.  
+- The asians in northeast have the lowest divorce rate, and the southern people with more than two races have the highest divorce rate.  
 
-3. For whites, the people in northeast have the lowest marriage and divorce rate, and the southern people have the highest two rates. This might be a result of the different culture in different regions. 
+- For whites, the people in northeast have the lowest marriage and divorce rate, and the southern people have the highest two rates. This might be a result of the different culture in different regions. 
 
-## viz3
+## 
 
-##Read the data
 ```{r KaishengWang's_Part, message=F}
 setwd("/Users/kaishengwang/Desktop/Applied\ Data\ Science\ Project/Project1/data")
 features <- c("MARHD", "MARHM", "PERNP", "PINCP", "AGEP", "SEX", "MAR")
@@ -256,8 +258,8 @@ max(Data$PINCP)
 Data$SEX <- as.factor(Data$SEX)
 ```
 
-#Methods of income group classification.
-#####Classificate income by $35,000/Year, $75,000/Year and $100,000/Year.
+### Methods of income group classification.
+##### Classificate income by $35,000/Year, $75,000/Year and $100,000/Year.
 ##### Upper Mid Class > $100,000/Year
 ##### $75,000/Year < Mid Class < $100,000/Year
 ##### $35,000/Year < Lower Mid Class < $75,000/Year
@@ -270,9 +272,8 @@ Data$Income <- ifelse(Data$PINCP < 35000, "Low",
                                     ("Upper Mid"))))
 ```
 
-#####Divrate = people who have been divorce or seperate / number of all people
 
-###Only divorce rate and Income level.
+## A Stereotype about Income
 ```{r}
 Data_Income_Divrate <- ddply(Data, .(Income), summarise, n = length(MARHD), Div_rate = (sum(MAR == 3) + sum(MAR == 4))/length(MAR))
 
@@ -282,10 +283,9 @@ Income_Divrate<- ggplot(Data_Income_Divrate, aes(x = factor(Income), y = Div_rat
                      xlab("Income Level") + ylab("Divorce rate")
 Income_Divrate
 ```
+##### From the plot, we can know that the low-income and mid-income groups have almost the same divorce rate but the high-income have the lower dicorce rate.
 
-#####From the plot, we can know that the low-income and mid-income groups have almost the same divorce rate but the high-income have the lower dicorce rate.
-
-###The effect of gender.
+## Gender
 ```{r}
 Data_Income_Divrate_sex <- ddply(Data, .(Income, SEX), summarise, n = length(MARHD), Div_rate = (sum(MAR == 3) + sum(MAR == 4))/length(MAR))
 
@@ -297,9 +297,9 @@ Income_sex_Divrate<- ggplot(Data_Income_Divrate_sex, aes(x = factor(Income), y =
 Income_sex_Divrate
 ```
 
-#####The results are very interesting!!! In the group of low-income, the divorce rate of male is more than it of female. But in the groups of mid-income and high-income, it's oppposite. And with the income increase, the divorce rate of female is more and more large and it for male. 
+##### The results are very interesting!!! In the group of low-income, the divorce rate of male is more than it of female. But in the groups of mid-income and high-income, it's oppposite. And with the income increase, the divorce rate of female is more and more large and it for male. 
 
-###The effect of agegroup.
+## As for the effect of Agegroup
 ```{r}
 Data$Agegroup <- ifelse(Data$AGEP < 30, "less than 30",
                         ifelse(Data$AGEP %in% c(30:40), "30 to 40",
@@ -315,18 +315,9 @@ Income_age_Divrate<- ggplot(Data_Income_Divrate_age, aes(x = factor(Income), y =
 Income_age_Divrate
 ```
 
-#####From the plot, we can know that in all age group, the peak of divorce is about 30 to 50 years old.
-#####The people who have high income and large than 60 years old have the lowest divorce rate and the people who have low income and in about 40 to 50 years old have the highest divorce rate. This result is also very interesting.
+##### From the plot, we can know that in all age group, the peak of divorce is about 30 to 50 years old.
+##### The people who have high income and large than 60 years old have the lowest divorce rate and the people who have low income and in about 40 to 50 years old have the highest divorce rate. This result is also very interesting.
 
-#Conclusion
-##1 The relation between income and divorce rate.
-#####With the increase of income, the divorce rate will decrease. Yes, from the results, we should work harder ad make more money.
-
-##2 The effect of gender.
-#####With the increase of income, the divorce rate of male is decrease, but the divorce rate of female do not change so much. So, in low-income group, the divorce rate of male is larger and it for female, but in mid-income group and high-income group, the divorce rate of female is larger than it for male and the difference is more and more large with the increase of income.
-
-##3 The effect of age group.
-#####The peak of divorce rate is between 30 years old to 50 years old. The lowest divorce rate is population who is in high-income group and large than 60 years old.And the largest divorce rate is population who is in low-income group and in the age group between 40 years old to 50 years old.
 
 
 
