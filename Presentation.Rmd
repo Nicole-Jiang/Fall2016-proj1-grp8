@@ -1,21 +1,19 @@
 ---
-title: 'Title'
+title: 'I Do...I Did...I'M DONE!!'
 author : 'Team: Code Go Gold'
 output: html_document
 ---
 ## Introduction
 
-##### A research conducted by David Popenoe, a sociologist at Rutgers University, asserted that fifty percent of marriages will end in divorce. Actually, divorce is both very personal and all too common. But there are many myths about divorce. Therefore, in this markdown we mainly focus on the divorce rate in the United States, as well we would provide some simple tips or advice to the next generations. 
+##### A research conducted by David Popenoe, a sociologist at Rutgers University, asserted that fifty percent of marriages will end in divorce. Actually, divorce is both very personal and all too common. But there are many myths about divorce. Therefore, in this script we mainly focus on the divorce rate in the United States, as well we would provide some simple tips or advice to the next generations. 
 
 
 ## Set the environment
 ```{r lib, message=F, include=T}
-# add all the lib you use
 library(rMaps)
-library(data.table)
-library("FactoMineR")
-library("factoextra")
-library("gplots")
+library(FactoMineR)
+library(factoextra)
+library(gplots)
 library(sunburstR)
 library(TraMineR)
 library(pipeR)
@@ -25,7 +23,6 @@ library(data.table)
 library(plyr)
 library(ggplot2)
 library(plotly)
-
 ```
 
 ## General Picture of the Divorce Rate
@@ -37,25 +34,23 @@ r1 = ichoropleth(Divorce_Rate ~ State, ncuts =5, rate, animate = "Year", legend 
 r1$save(destfile = 'general.html')
 ```
 
-```{r viz, echo=FALSE}
-# htmltools::includeHTML("file:///Users/pengfeiwang/Desktop/Fall2016-proj1-grp8/figs/general.html")
+```{r viz, echo=T}
+htmltools::includeHTML("file:///Users/pengfeiwang/Desktop/Fall2016-proj1-grp8/figs/general.html")
 ```
 
-###### This choropleth encodes divorce rates per 1000 population for successive 12-monthe period from 2008 with a quantize scale ranging from 0 to 11%. As we can see, the divorce rate is continuously decreasing for almost half decade in every states. However, the absolute value remains very high.
+###### This choropleth encodes divorce rates per 1000 population for successive 12-monthe period from 2008 with a quantize scale ranging from 0 to 11%. As we can see, the divorce rate is continuously decreasing for almost half decade in every states. However, the absolute value remains a high rate. 
 
 
 
-###### The following part is a general summary of of the relationsip between marriage times and education levels. Here, education level is accounted as one's highest degree. In the first ballon fig, we can see that in every education level, those who has never divorced accunt for the largest group. Also, the trend are the same: population decreases as the divorce time increases. But one interesting thing is that the "never divorce" and "divorce once" group sizes in Low education and Master level are almost the same. However, the "divorce twice" and ">3 time divorce" groups in Low education level are much larger than they are in Master level.
+## Does education matter?
 
+###### The following part is a general summary of of the relationsip between marriage times and education levels. Here, education level is accounted as one's highest degree. In the first ballon figure, we can see that in every education level, those who have never divorced account for the largest portion. Also, the trend are the same: population decreases as the divorce time increases. But one interesting thing is that the "never divorce" and "divorce once" group sizes in Low education and Master level are almost the same. However, the "divorce twice" and ">3 time divorce" groups in Low education level are much larger than they are in Master level.
 
-## Education / Major
-```{r code, echo=F, message=F, include=F}
-# Chencheng's Part
-#setwd("~/Documents/Courses/ADS/Project 1")
+```{r Chencheng_JIANG's_part, echo=F, message=F, include=F}
 # data cleansing
 colstokeep_pus <- c("AGEP", "MSP", "MARHT", "SCHL", "FOD1P", "SCIENGRLP")
-dataset_a <- fread('csv_pus/ss14pusa.csv', select= colstokeep_pus)
-dataset_b <- fread('csv_pus/ss14pusb.csv', select= colstokeep_pus)
+dataset_a <- fread('/Users/pengfeiwang/Desktop/Fall1/data/ss14pusa.csv', select= colstokeep_pus)
+dataset_b <- fread('/Users/pengfeiwang/Desktop/Fall1/data/ss14pusb.csv', select= colstokeep_pus)
 data.fm<- data.frame(rbind(dataset_a, dataset_b)[AGEP >18,])
 data.fm <- data.fm[!is.na(data.fm[,"MARHT"]),]
 data.fm$DIV=data.fm$MARHT-1
@@ -126,24 +121,28 @@ cols=c(brewer.pal(6,"Set2"),brewer.pal(6,"Set3"))
 sunburst(sun_edu.fm,colors=cols)
 ```
 
-###### For the sunburst fig, the innermost circle shows proportion of different divorce times, the middel circle shows the education level, and the outermost circle shows the major, whether it's STEM or not. As we can see, the never divorced group accounts for 64% of the total married people. For most of us, who are master of STEM students, stays in blue-light orange part. So we probably end up with never divorce or divorce once (never divorce 0.758%, divorce once 0.254%) but will never divorce more than twice
 
 ```{r sunburst, echo=T}
 # add the link to the html
 
 ```
 
+###### For the sunburst fig, the innermost circle shows proportion of different divorce times, the middel circle shows the education level, and the outermost circle shows the major, whether it's STEM or not. As we can see, the never divorced group accounts for 64% of the total married people. For most of us, who are master of STEM students, stays in blue-light orange part. So we probably end up with never divorce or divorce once (never divorce 0.758%, divorce once 0.254%) but will never divorce more than twice
 
 
 ## Useful data extraction
+<<<<<<< Updated upstream
 
 Read in the useful columns. 
 
 ```{r, message=FALSE, warning=FALSE}
 # Minghao's Part
+=======
+```{r MinghaoDai's_Part, message=FALSE, warning=FALSE}
+>>>>>>> Stashed changes
 colstokeep_time <- c("MARHD", "MARHM", "JWAP", "JWDP", "SEX", "AEGP", "PERNP", "RAC1P", "ST")
-T1 <- fread('ss13pusa.csv', select = colstokeep_time, na.strings = c("bbb", "bbbbbbb"))
-T2 <- fread('ss13pusb.csv', select = colstokeep_time, na.strings = c("bbb", "bbbbbbb"))
+T1 <- fread('/Users/pengfeiwang/Desktop/Fall1/data/ss13pusa.csv', select = colstokeep_time, na.strings = c("bbb", "bbbbbbb"))
+T2 <- fread('/Users/pengfeiwang/Desktop/Fall1/data/ss13pusb.csv', select = colstokeep_time, na.strings = c("bbb", "bbbbbbb"))
 Tfull <- rbind(T1, T2)
 Tuse <- na.omit(Tfull)
 ```
@@ -171,9 +170,10 @@ hour_sex_marry <- ggplot(rate_arr, aes(x = factor(JWAP_h), y = mrate, fill=SEX))
   theme(legend.justification=c(1,0), legend.position=c(1,0), 
         text = element_text(size=15))
 
-hour_sex_marry  
+# hour_sex_marry  
   
 hour_sex_divorce <- ggplot(rate_arr, aes(x = factor(JWAP_h), y = drate, fill=SEX)) +
+  scale_color_manual(values=wes_palette(n=2, name="GrandBudapest"))+
   geom_bar(stat = "identity", position = "dodge", alpha = 0.8)+ 
   coord_polar(theta = "x", start = -0.13)+
   xlab("Time arrival at work") + ylab("Divorce rate")+
@@ -181,10 +181,13 @@ hour_sex_divorce <- ggplot(rate_arr, aes(x = factor(JWAP_h), y = drate, fill=SEX
   scale_fill_discrete(labels=c("Male", "Female"))+
   theme(legend.justification=c(1,0), legend.position=c(1,0), 
         text = element_text(size=15))
-
-hour_sex_divorce
-
 ```
+
+```{r working_time, echo=T}
+hour_sex_divorce
+```
+##### say something
+
 
 The number on the outer circle is the time arrival at work from 0 am to 23 pm, the height of each bar refers to the marriage/divorce rate in the two plots. 
 
@@ -219,6 +222,9 @@ earn_sex <- ggplot(rate_earn_transfer,
 earn_sex
 
 ```
+# say something
+
+
 
 The x axis represents the personal earnings, the barplot above x axis refers to the marriage rate, and the below part refers to the divorce rate. 
 
