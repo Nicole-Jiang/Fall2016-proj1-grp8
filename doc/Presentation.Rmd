@@ -44,6 +44,7 @@ r1$save(destfile = 'general.html')
 ```{r viz, echo=T}
 htmltools::includeHTML("https://github.com/TZstatsADS/Fall2016-proj1-grp8/blob/master/figs/general.html")
 ```
+![General_Map](https://github.com/TZstatsADS/Fall2016-proj1-grp8/blob/master/figs/general_by_state.png)
 
 This choropleth encodes divorce rates per 1000 population for successive 12-monthe period from 2008 with a quantize scale ranging from 0 to 11%. As we can see, the divorce rate is continuously decreasing for almost half decade in every states. However, the absolute value remains at a high rate. 
 
@@ -121,6 +122,7 @@ sunburst(sun_edu.fm,colors=cols)
 # add the link to the html
 htmltools::includeHTML("https://github.com/TZstatsADS/Fall2016-proj1-grp8/blob/master/figs/Sunburst.html")
 ```
+![Sunburst Viz](https://github.com/TZstatsADS/Fall2016-proj1-grp8/blob/master/figs/sunburst.png)
 
 For the sunburst fig, the innermost circle shows proportion of different divorce times, the middel circle shows the education level, and the outermost circle shows the major, whether it's STEM or not. As we can see, the never divorced group accounts for 64% of the total married people. For most of us, who are master of STEM students, stays in blue-light orange part. So we probably end up with never divorce or divorce once (never divorce 0.758%, divorce once 0.254%) but will never divorce more than twice
 
