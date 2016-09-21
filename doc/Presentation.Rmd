@@ -302,7 +302,7 @@ Income_sex_Divrate<- ggplot(Data_Income_Divrate_sex, aes(x = factor(Income), y =
                      xlab("Income Level") + ylab("Divorce rate") + 
                      scale_fill_discrete(labels = c("Male", "Female"))
 ```
-Income_sex_Divrate ![Click here!](https://github.com/TZstatsADS/Fall2016-proj1-grp8/blob/master/figs/Income%2C%20gender%20and%20divorce%20rate.png)
+![Income_sex_Divrate](https://github.com/TZstatsADS/Fall2016-proj1-grp8/blob/master/figs/Income%2C%20gender%20and%20divorce%20rate.png)
 
 
 ##### The results are very interesting!!! In the group of low-income, the divorce rate of male is more than it of female. But in the groups of mid-income and high-income, it's oppposite. And with the income increase, the divorce rate of female is more and more large and it for male. 
@@ -321,7 +321,7 @@ Income_age_Divrate<- ggplot(Data_Income_Divrate_age, aes(x = factor(Income), y =
                       xlab("Income Level") + ylab("Divorce rate") + 
                       scale_fill_discrete(labels = c("Less than 30", "30 to 40", "40 to 50", "50 to 60", "Large than 60"))
 ```
-Income_age_Divrate ![Click here!](https://github.com/TZstatsADS/Fall2016-proj1-grp8/blob/master/figs/Income.%20agegroup%20and%20divorce%20rate.png)
+![Income_age_Divrate](https://github.com/TZstatsADS/Fall2016-proj1-grp8/blob/master/figs/Income.%20agegroup%20and%20divorce%20rate.png)
 
 ##### From the plot, we can know that in all age group, the peak of divorce is about 30 to 50 years old.
 ##### The people who have high income and large than 60 years old have the lowest divorce rate and the people who have low income and in about 40 to 50 years old have the highest divorce rate. This result is also very interesting.
