@@ -162,6 +162,7 @@ hour_sex_divorce <- ggplot(rate_arr, aes(x = factor(JWAP_h), y = drate, fill=SEX
 ```{r working_time, echo=T}
 hour_sex_divorce
 ```
+![Hour_Sex_Divorce](https://github.com/TZstatsADS/Fall2016-proj1-grp8/blob/master/figs/Work_time.png)
 
 The number on the outer circle is the time arrival at work from 0 am to 23 pm, the height of each bar refers to the marriage/divorce rate in the two plots. 
 
@@ -243,7 +244,7 @@ The x axis is divorce rate, the y axis is marriage rate, the color refers to dif
 
 - For whites, the people in northeast have the lowest marriage and divorce rate, and the southern people have the highest two rates. This might be a result of the different culture in different regions. 
 
-## 
+## A Stereotype about Income
 
 ```{r KaishengWang's_Part, message=F}
 setwd("/Users/kaishengwang/Desktop/Applied\ Data\ Science\ Project/Project1/data")
@@ -261,13 +262,13 @@ max(Data$PINCP)
 Data$SEX <- as.factor(Data$SEX)
 ```
 
-### Methods of income group classification.
+#### Methods of income group classification.
 - Classificate income by $35,000/Year, $75,000/Year and $100,000/Year.
 - Upper Mid Class > $100,000/Year
 - $75,000/Year < Mid Class < $100,000/Year
 - $35,000/Year < Lower Mid Class < $75,000/Year
 - Lower Class < $35,000/Year
-- 
+
 ```{r}
 Income_sort <- sort(Data$PINCP)
 Data$Income <- ifelse(Data$PINCP < 35000, "Low",
@@ -276,8 +277,6 @@ Data$Income <- ifelse(Data$PINCP < 35000, "Low",
                                     ("Upper Mid"))))
 ```
 
-
-## A Stereotype about Income
 ```{r}
 Data_Income_Divrate <- ddply(Data, .(Income), summarise, n = length(MARHD), Div_rate = (sum(MAR == 3) + sum(MAR == 4))/length(MAR))
 
@@ -288,10 +287,10 @@ Income_Divrate<- ggplot(Data_Income_Divrate, aes(x = factor(Income), y = Div_rat
 ```
 [Income_Divrate](https://github.com/TZstatsADS/Fall2016-proj1-grp8/blob/master/figs/income%20divorce%20rate.png)
 
+From the plot, we can know that the low-income and mid-income groups have almost the same divorce rate but the high-income have the lower dicorce rate.
 
-##### From the plot, we can know that the low-income and mid-income groups have almost the same divorce rate but the high-income have the lower dicorce rate.
 
-## Gender
+## The Gender 
 
 ```{r}
 Data_Income_Divrate_sex <- ddply(Data, .(Income, SEX), summarise, n = length(MARHD), Div_rate = (sum(MAR == 3) + sum(MAR == 4))/length(MAR))
@@ -304,8 +303,7 @@ Income_sex_Divrate<- ggplot(Data_Income_Divrate_sex, aes(x = factor(Income), y =
 ```
 ![Income_sex_Divrate](https://github.com/TZstatsADS/Fall2016-proj1-grp8/blob/master/figs/Income%2C%20gender%20and%20divorce%20rate.png)
 
-
-##### The results are very interesting!!! In the group of low-income, the divorce rate of male is more than it of female. But in the groups of mid-income and high-income, it's oppposite. And with the income increase, the divorce rate of female is more and more large and it for male. 
+The results are very interesting!!! In the group of low-income, the divorce rate of male is more than it of female. But in the groups of mid-income and high-income, it's oppposite. And with the income increase, the divorce rate of female is more and more large and it for male. 
 
 ## As for the effect of Agegroup
 ```{r}
@@ -323,8 +321,7 @@ Income_age_Divrate<- ggplot(Data_Income_Divrate_age, aes(x = factor(Income), y =
 ```
 ![Income_age_Divrate](https://github.com/TZstatsADS/Fall2016-proj1-grp8/blob/master/figs/Income.%20agegroup%20and%20divorce%20rate.png)
 
-##### From the plot, we can know that in all age group, the peak of divorce is about 30 to 50 years old.
-##### The people who have high income and large than 60 years old have the lowest divorce rate and the people who have low income and in about 40 to 50 years old have the highest divorce rate. This result is also very interesting.
+From the plot, we can know that in all age group, the peak of divorce is about 30 to 50 years old. The people who have high income and large than 60 years old have the lowest divorce rate and the people who have low income and in about 40 to 50 years old have the highest divorce rate. This result is also very interesting.
 
 
 
