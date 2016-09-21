@@ -52,8 +52,8 @@ The following part is a general summary of of the relationsip between marriage t
 ```{r Chencheng_JIANG's_part, echo=F, message=F, include=F}
 # data cleansing
 colstokeep_pus <- c("AGEP", "MSP", "MARHT", "SCHL", "FOD1P", "SCIENGRLP")
-dataset_a <- fread('/Users/pengfeiwang/Desktop/Fall1/data/ss14pusa.csv', select= colstokeep_pus)
-dataset_b <- fread('/Users/pengfeiwang/Desktop/Fall1/data/ss14pusb.csv', select= colstokeep_pus)
+dataset_a <- fread('/Users/pengfeiwang/Desktop/Fall1/data/ss13pusa.csv', select= colstokeep_pus)
+dataset_b <- fread('/Users/pengfeiwang/Desktop/Fall1/data/ss13pusb.csv', select= colstokeep_pus)
 data.fm<- data.frame(rbind(dataset_a, dataset_b)[AGEP >18,])
 data.fm <- data.fm[!is.na(data.fm[,"MARHT"]),]
 data.fm$DIV=data.fm$MARHT-1

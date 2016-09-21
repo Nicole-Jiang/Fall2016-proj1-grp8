@@ -12,8 +12,8 @@ library("data.table")
 
 # data cleansing
 colstokeep_pus <- c("AGEP", "MSP", "MARHT", "SCHL", "FOD1P", "SCIENGRLP")
-dataset_a <- fread('csv_pus/ss14pusa.csv', select= colstokeep_pus)
-dataset_b <- fread('csv_pus/ss14pusb.csv', select= colstokeep_pus)
+dataset_a <- fread('csv_pus/ss13pusa.csv', select= colstokeep_pus)
+dataset_b <- fread('csv_pus/ss13pusb.csv', select= colstokeep_pus)
 data.fm<- data.frame(rbind(dataset_a, dataset_b)[AGEP >18,])
 data.fm <- data.fm[!is.na(data.fm[,"MARHT"]),]
 data.fm$DIV=data.fm$MARHT-1
@@ -44,7 +44,7 @@ for(i in 1:5){
 #####################################################
 #draw the balloonplot
 balloonplot(t(as.table(div_edu)), main ="Divorce and Education level", xlab ="Divorce", ylab="Education level",
-            dotsize = 8, text.size= 0.7, label = F, show.margins = FALSE)
+            dotsize = 13, text.size= 0.7, label = F, show.margins = FALSE)
 #http://www.sthda.com/english/wiki/correspondence-analysis-in-r-the-ultimate-guide-for-the-analysis-
 #the-visualization-and-the-interpretation-r-software-and-data-mining#at_pco=smlwn-1.0&at_si=57dd7e521
 #65dfc04&at_ab=per-2&at_pos=0&at_tot=1
