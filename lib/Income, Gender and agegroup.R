@@ -19,6 +19,7 @@ min(Data$PINCP)
 #-13600
 max(Data$PINCP)
 #1281000
+hist(Data$PINCP, xlab = "Income")
 
 #In general, there are two kind of classification of income.
 #One is Upper Class, Middle Class and Lower Class.
@@ -40,6 +41,14 @@ Data$Income <- ifelse(Data$PINCP %in% c(min(Data$PINCP):One_Third), "Low",
 #Another is the number of people who have been divorce divoice by the number of all population.
 #I will utilize all of them in my code.
 #Divrate1 = people who have been divorce or seperate / number of all people
+Data_Divrate1 <- ddply(Data, .(Income), summarise, n = length(MARHD), Div_rate1 = (sum(MAR == 3) + sum(MAR == 4))/length(MAR))
+
+Income_Divrate1<- ggplot(Data_Divrate1, aes(x = factor(Income), y = Div_rate1, fill = Income)) + 
+  geom_bar(stat = "identity", position = "dodge") + 
+  coord_polar(theta = "x") + 
+  xlab("Income Level") + ylab("Divorce rate")
+Income_Divrate1
+
 Data_Divrate1 <- ddply(Data, .(Income, SEX), summarise, n = length(MARHD), Div_rate1 = (sum(MAR == 3) + sum(MAR == 4))/length(MAR))
 
 Income_sex_Divrate1<- ggplot(Data_Divrate1, aes(x = factor(Income), y = Div_rate1, fill = SEX)) + 

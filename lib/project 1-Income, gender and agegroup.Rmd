@@ -1,0 +1,299 @@
+---
+title: "Correlation between Divorce rate and Income"
+Author: Kaisheng Wang
+output: html_document
+---
+######Kaisheng Wang
+#1 Introduction
+#####The relation between Income and Divorce rate is a interesting topic.
+#####We always would like to know weather we can make our marriage relation firmer by earing more support our family a better life. 
+#####In order to answer this question, we make this research.
+#####Firly, we have to classificate the population into different groups by income. In general, the split of population by income are lower class, middle class and higher class.
+#####So, we split the population into three different groups by income and The first 1/3 of them are the people whose income is the lowest 1/3, we name them "Lower Class". The middle 1/3 of them are the people whose income are middle and we name them "Middle Class" and the we name the rest "Upper Class".
+#####There are another way to classficate the income, I will talk about it detailed below. 
+#####We will pay attention on the divorce rate in different income group.
+#####Forther more, we will pay attention on the affection of different gender and age group.
+
+##1.1. Setup the Bench
+#####Install Package and build environment.
+######(data.table), (readr), (plyr), (ggplot2), (dplyr), (foreach) and (gridExtra)
+```{r setup, include=FALSE}
+library(data.table)
+library(readr)
+library(plyr)
+library(ggplot2)
+library(dplyr)
+library(foreach)
+library(gridExtra)
+```
+##1.2. Read the data
+#####Because the limitation of PC, we only read the selected variables from the data set
+######"MARHD" = Divorced in the past 12 months. b. N/A (age less than 15 years or never married)  1.Yes  2. No
+######"MARHM" = Married in the past 12 months.b. N/A (age less than 15 years or never married)  1.Yes  2. No 
+######"PERNP" = Total person's earning.
+######"PINCP" = Total person's income(signed).
+######"AGEP" = Age
+######"SEX" = Gender 1. Male 2. Female
+######"MAR" = Marital Status 1. Married 2. Windowsed 3. Divorced 4. Separated 5. Never married or under 15 years old.
+#####Cause there are two data set, we read them one by one and merge then by rows
+```{r}
+setwd("/Users/kaishengwang/Desktop/Applied\ Data\ Science\ Project/Project1/data")
+features <- c("MARHD", "MARHM", "PERNP", "PINCP", "AGEP", "SEX", "MAR")
+Data1 <- fread('ss13pusa.csv', select = features)
+Data2 <- fread('ss13pusb.csv', select = features)
+Data <- rbind(Data1, Data2)
+```
+
+##1.3 Data Manipulation
+#####Data clean, remove the unuseful data and plot the distribution of Income.
+```{r}
+Data <- na.omit(Data)
+remove(Data1)
+remove(Data2)
+Data <- subset(Data, MAR != 5)
+
+min(Data$PINCP)
+#-13600
+max(Data$PINCP)
+#1281000
+hist(Data$PINCP, xlab = "Income")
+```
+
+#####From the distribution, we can see roughly the distribution of income is normal although there are some people's income is SOOOOO high. 
+#####This means the classification of income is meanful. 
+#####But as I mentioned above, there are another way to classficate income. This is Upper Mid Class, Mid Class, Lower Mid Class and Lower Class and the split points are $35,000/Year, $75,000/year, $100,000/year.
+#####I will talk them one by one.
+
+
+
+#####I would like to talk about data visualization of two kinks of income classfication and the effect of gender and age group.
+#####In terms of Divorce rate, there are two kinds of ways to classicate. One is the number of people who have been divorced divoice by the number of people who have been married.Another is the number of people who have been divorce divoice by the number of all population.
+#####I will utilize all of them in my code.
+
+#2 One way to classficate income group.
+#####Classficate income by 1/3 and 2/3 of income level.
+```{r}
+Data$SEX <- as.factor(Data$SEX)
+Income_sort <- sort(Data$PINCP)
+One_Third <- Income_sort[round(dim(Data)[1]/3)]
+Two_Third <- Income_sort[round(dim(Data)[1]/3)*2]
+Data$Income1 <- ifelse(Data$PINCP %in% c(min(Data$PINCP):One_Third), "Low",
+                      ifelse(Data$PINCP %in% c(One_Third:Two_Third), "Mid",
+                             ("High")))
+```
+##2.1 One way to defince divorce rate
+#####Divrate1 = people who have been divorce or seperate / number of all people
+#####we are also interested in weather gender and age group could affect the divorce rate. So, we will discuss them one by one.
+###2.1.1 Only divorce rate and Income level.
+```{r}
+Data_Income1_Divrate1 <- ddply(Data, .(Income1), summarise, n = length(MARHD), Div_rate1 = (sum(MAR == 3) + sum(MAR == 4))/length(MAR))
+
+Income1_Divrate1<- ggplot(Data_Income1_Divrate1, aes(x = factor(Income1), y = Div_rate1, fill = Income1)) + 
+                     geom_bar(stat = "identity", position = "dodge") + 
+                     coord_polar(theta = "x") + 
+                     xlab("Income Level") + ylab("Divorce rate")
+Income1_Divrate1
+```
+
+#####From the plot, we can know that the low-income and mid-income groups have almost the same divorce rate but the high-income have the lower dicorce rate.
+
+###2.1.2 The effect of gender.
+```{r}
+Data_Income1_Divrate1_sex <- ddply(Data, .(Income1, SEX), summarise, n = length(MARHD), Div_rate1 = (sum(MAR == 3) + sum(MAR == 4))/length(MAR))
+
+Income1_sex_Divrate1<- ggplot(Data_Income1_Divrate1_sex, aes(x = factor(Income1), y = Div_rate1, fill = SEX)) + 
+                     geom_bar(stat = "identity", position = "dodge") + 
+                     coord_polar(theta = "x") + 
+                     xlab("Income Level") + ylab("Divorce rate") + 
+                     scale_fill_discrete(labels = c("Male", "Female"))
+Income1_sex_Divrate1
+```
+
+#####The results are very interesting!!! In the group of low-income, the divorce rate of male is more than it of female. But in the groups of mid-income and high-income, it's oppposite. And with the income increase, the divorce rate of female is more and more large and it for male. 
+
+###2.1.3 The effect of agegroup.
+```{r}
+Data$Agegroup <- ifelse(Data$AGEP < 30, "less than 30",
+                        ifelse(Data$AGEP %in% c(30:40), "30 to 40",
+                               ifelse(Data$AGEP %in% c(40:50), "40 to 50",
+                                      ifelse(Data$AGEP %in% c(50:60), "50 to 60",
+                                             ("Large than 60")))))
+Data_Income1_Divrate1_age <- ddply(Data, .(Income1, Agegroup), summarise, n = length(MARHD), Div_rate1 = (sum(MAR == 3) + sum(MAR == 4))/length(MAR))
+Income1_age_Divrate1<- ggplot(Data_Income1_Divrate1_age, aes(x = factor(Income1), y = Div_rate1, fill = Agegroup)) + 
+                      geom_bar(stat = "identity", position = "dodge") + 
+                      coord_polar(theta = "x") + 
+                      xlab("Income Level") + ylab("Divorce rate") + 
+                      scale_fill_discrete(labels = c("Less than 30", "30 to 40", "40 to 50", "50 to 60", "Large than 60"))
+Income1_age_Divrate1
+```
+
+#####From the plot, we can know that in all age group, the peak of divorce is about 30 to 50 years old.
+#####The people who have high income and large than 60 years old have the lowest divorce rate and the people who have low income and in about 40 to 50 years old have the highest divorce rate. This result is also very interesting. 
+
+##2.2 Another way to define divorce rate.
+#####Divrate2 = poeple who have been divorce in the past 12 months / people who have been married in the past 12 months
+
+###2.2.1 Only divorce rate and Income level.
+```{r}
+Data_Income1_Divrate2 <- ddply(Data, .(Income1), summarise, n = length(MARHD), Div_rate2 = (sum(MARHD == 1))/(sum(MARHM == 1)))
+
+Income1_Divrate2 <- ggplot(Data_Income1_Divrate2, aes(x = factor(Income1), y = Div_rate2, fill = Income1)) + 
+                     geom_bar(stat = "identity", position = "dodge") + 
+                     coord_polar(theta = "x") + 
+                     xlab("Income Level") + ylab("Divorce rate")
+Income1_Divrate2
+```
+
+#####The results are not obvious 
+
+###2.2.2 The effect of gender.
+```{r}
+Data_Income1_Divrate2_sex <- ddply(Data, .(Income1, SEX), summarise, n = length(MARHD), Div_rate2 = (sum(MARHD == 1))/(sum(MARHM == 1)))
+
+Income1_sex_Divrate2<- ggplot(Data_Income1_Divrate2_sex, aes(x = factor(Income1), y = Div_rate2, fill = SEX)) + 
+                     geom_bar(stat = "identity", position = "dodge") + 
+                     coord_polar(theta = "x") + 
+                     xlab("Income Level") + ylab("Divorce rate") + 
+                     scale_fill_discrete(labels = c("Male", "Female"))
+Income1_sex_Divrate2
+```
+
+#####The results are almost the same with the previous one.
+
+###2.2.3 The effect of agegroup.
+```{r}
+Data$Agegroup <- ifelse(Data$AGEP < 30, "less than 30",
+                        ifelse(Data$AGEP %in% c(30:40), "30 to 40",
+                               ifelse(Data$AGEP %in% c(40:50), "40 to 50",
+                                      ifelse(Data$AGEP %in% c(50:60), "50 to 60",
+                                             ("Large than 60")))))
+Data_Income1_Divrate2_age <- ddply(Data, .(Income1, Agegroup), summarise, n = length(MARHD), Div_rate2 = (sum(MARHD == 1))/(sum(MARHM == 1)))
+Income1_age_Divrate2<- ggplot(Data_Income1_Divrate2_age, aes(x = factor(Income1), y = Div_rate2, fill = Agegroup)) + 
+                      geom_bar(stat = "identity", position = "dodge") + 
+                      coord_polar(theta = "x") + 
+                      xlab("Income Level") + ylab("Divorce rate") + 
+                      scale_fill_discrete(labels = c("Less than 30", "30 to 40", "40 to 50", "50 to 60", "Large than 60"))
+Income1_age_Divrate2
+```
+
+#####The results are almost the same with the previous results.
+
+#3 Another way to classficate income group.
+#####Classficate income by $35,000/Year, $75,000/Year and $100,000/Year.
+##### Upper Mid Class > $100,000/Year
+##### $75,000/Year < Mid Class < $100,000/Year
+##### $35,000/Year < Lower Mid Class < $75,000/Year
+##### Lower Class < $35,000/Year
+```{r}
+Income_sort <- sort(Data$PINCP)
+Data$Income2 <- ifelse(Data$PINCP < 35000, "Low",
+                      ifelse(Data$PINCP %in% c(35000:75000), "Lower Mid",
+                             ifelse(Data$PINCP %in% c(75000: 100000), "Mid",
+                                    ("Upper Mid"))))
+```
+
+##3.1 One way to define divorce rate.
+#####Divrate1 = people who have been divorce or seperate / number of all people
+#####we are also interested in weather gender and age group could affect the divorce rate. So, we will discuss them one by one.
+###3.1.1 Only divorce rate and Income level.
+```{r}
+Data_Income2_Divrate1 <- ddply(Data, .(Income2), summarise, n = length(MARHD), Div_rate1 = (sum(MAR == 3) + sum(MAR == 4))/length(MAR))
+
+Income2_Divrate1<- ggplot(Data_Income2_Divrate1, aes(x = factor(Income2), y = Div_rate1, fill = Income2)) + 
+                     geom_bar(stat = "identity", position = "dodge") + 
+                     coord_polar(theta = "x") + 
+                     xlab("Income Level") + ylab("Divorce rate")
+Income2_Divrate1
+```
+
+#####From the plot, we can know that the result are almost the same with the previous one. With the increase of income, the divorce rate are decreased.
+
+###3.1.2 The effect of gender.
+```{r}
+Data_Income2_Divrate1_sex <- ddply(Data, .(Income2, SEX), summarise, n = length(MARHD), Div_rate1 = (sum(MAR == 3) + sum(MAR == 4))/length(MAR))
+
+Income2_sex_Divrate1<- ggplot(Data_Income2_Divrate1_sex, aes(x = factor(Income2), y = Div_rate1, fill = SEX)) + 
+                     geom_bar(stat = "identity", position = "dodge") + 
+                     coord_polar(theta = "x") + 
+                     xlab("Income Level") + ylab("Divorce rate") + 
+                     scale_fill_discrete(labels = c("Male", "Female"))
+Income2_sex_Divrate1
+```
+
+#####There are some new results from this plot. With the increase of income, the divorce rate of male will decrease, but the divorce rate of female not change so much.
+
+###3.1.3 The effect of agegroup.
+```{r}
+Data$Agegroup <- ifelse(Data$AGEP < 30, "less than 30",
+                        ifelse(Data$AGEP %in% c(30:40), "30 to 40",
+                               ifelse(Data$AGEP %in% c(40:50), "40 to 50",
+                                      ifelse(Data$AGEP %in% c(50:60), "50 to 60",
+                                             ("Large than 60")))))
+Data_Income2_Divrate1_age <- ddply(Data, .(Income2, Agegroup), summarise, n = length(MARHD), Div_rate1 = (sum(MAR == 3) + sum(MAR == 4))/length(MAR))
+Income2_age_Divrate1<- ggplot(Data_Income2_Divrate1_age, aes(x = factor(Income2), y = Div_rate1, fill = Agegroup)) + 
+                      geom_bar(stat = "identity", position = "dodge") + 
+                      coord_polar(theta = "x") + 
+                      xlab("Income Level") + ylab("Divorce rate") + 
+                      scale_fill_discrete(labels = c("Less than 30", "30 to 40", "40 to 50", "50 to 60", "Large than 60"))
+Income2_age_Divrate1
+```
+
+#####The results are almost the same with the previous results.
+
+##3.2 Another way to define divorce rate.
+#####Divrate2 = poeple who have been divorce in the past 12 months / people who have been married in the past 12 months
+
+###3.2.1 Only divorce rate and Income level.
+```{r}
+Data_Income2_Divrate2 <- ddply(Data, .(Income2), summarise, n = length(MARHD), Div_rate2 = (sum(MARHD == 1))/(sum(MARHM == 1)))
+
+Income2_Divrate2 <- ggplot(Data_Income2_Divrate1, aes(x = factor(Income2), y = Div_rate2, fill = Income2)) + 
+                     geom_bar(stat = "identity", position = "dodge") + 
+                     coord_polar(theta = "x") + 
+                     xlab("Income Level") + ylab("Divorce rate")
+Income2_Divrate1
+```
+
+#####The results are the same with the previous one.
+
+###3.2.2 The effect of gender.
+```{r}
+Data_Income2_Divrate2_sex <- ddply(Data, .(Income2, SEX), summarise, n = length(MARHD), Div_rate2 = (sum(MARHD == 1))/(sum(MARHM == 1)))
+
+Income2_sex_Divrate1<- ggplot(Data_Income2_Divrate2_sex, aes(x = factor(Income1), y = Div_rate2, fill = SEX)) + 
+                     geom_bar(stat = "identity", position = "dodge") + 
+                     coord_polar(theta = "x") + 
+                     xlab("Income Level") + ylab("Divorce rate") + 
+                     scale_fill_discrete(labels = c("Male", "Female"))
+Income1_sex_Divrate1
+```
+
+#####The results are the same with the previous one.
+
+###3.2.3 The effect of agegroup.
+```{r}
+Data$Agegroup <- ifelse(Data$AGEP < 30, "less than 30",
+                        ifelse(Data$AGEP %in% c(30:40), "30 to 40",
+                               ifelse(Data$AGEP %in% c(40:50), "40 to 50",
+                                      ifelse(Data$AGEP %in% c(50:60), "50 to 60",
+                                             ("Large than 60")))))
+Data_Income2_Divrate2_age <- ddply(Data, .(Income2, Agegroup), summarise, n = length(MARHD), Div_rate2 = (sum(MARHD == 1))/(sum(MARHM == 1)))
+Income2_age_Divrate2<- ggplot(Data_Income2_Divrate2_age, aes(x = factor(Income2), y = Div_rate2, fill = Agegroup)) + 
+                      geom_bar(stat = "identity", position = "dodge") + 
+                      coord_polar(theta = "x") + 
+                      xlab("Income Level") + ylab("Divorce rate") + 
+                      scale_fill_discrete(labels = c("Less than 30", "30 to 40", "40 to 50", "50 to 60", "Large than 60"))
+Income2_age_Divrate2
+```
+
+#####The results are the same with the previous one.
+
+#4. Conclusion
+##4.1 The relation between income and divorce rate.
+#####With the increase of income, the divorce rate will decrease. Yes, from the results, we should work harder ad make more money.
+
+##4.2 The effect of gender.
+#####With the increase of income, the divorce rate of male is decrease, but the divorce rate of female do not change so much. So, in low-income group, the divorce rate of male is larger and it for female, but in mid-income group and high-income group, the divorce rate of female is larger than it for male and the difference is more and more large with the increase of income.
+
+##4.3 The effect of age group.
+#####The peak of divorce rate is between 30 years old to 50 years old. The lowest divorce rate is population who is in high-income group and large than 60 years old.And the largest divorce rate is population who is in low-income group and in the age group between 40 years old to 50 years old.
