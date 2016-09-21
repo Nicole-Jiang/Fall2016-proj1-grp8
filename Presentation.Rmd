@@ -5,7 +5,7 @@ output: html_document
 ---
 ## Introduction
 
-##### A research conducted by David Popenoe, a sociologist at Rutgers University, asserted that fifty percent of marriages will end in divorce. Actually, divorce is both very personal and all too common. But there are many myths about divorce. Therefore, in this script we mainly focus on the divorce rate in the United States, as well we would provide some simple tips or advice to the next generations. 
+A research conducted by David Popenoe, a sociologist at Rutgers University, asserted that fifty percent of marriages will end in divorce. Actually, divorce is both very personal and all too common. But there are many myths about divorce. Therefore, in this script we mainly focus on the divorce rate in the United States, as well we would provide some simple tips or advice to the next generations. 
 
 
 ## Set the environment
@@ -23,6 +23,10 @@ library(data.table)
 library(plyr)
 library(ggplot2)
 library(plotly)
+library(readr)
+library(dplyr)
+library(foreach)
+library(gridExtra)
 ```
 
 ## General Picture of the Divorce Rate
@@ -38,13 +42,13 @@ r1$save(destfile = 'general.html')
 htmltools::includeHTML("file:///Users/pengfeiwang/Desktop/Fall2016-proj1-grp8/figs/general.html")
 ```
 
-###### This choropleth encodes divorce rates per 1000 population for successive 12-monthe period from 2008 with a quantize scale ranging from 0 to 11%. As we can see, the divorce rate is continuously decreasing for almost half decade in every states. However, the absolute value remains a high rate. 
+This choropleth encodes divorce rates per 1000 population for successive 12-monthe period from 2008 with a quantize scale ranging from 0 to 11%. As we can see, the divorce rate is continuously decreasing for almost half decade in every states. However, the absolute value remains at a high rate. 
 
 
 
 ## Does education matter?
 
-###### The following part is a general summary of of the relationsip between marriage times and education levels. Here, education level is accounted as one's highest degree. In the first ballon figure, we can see that in every education level, those who have never divorced account for the largest portion. Also, the trend are the same: population decreases as the divorce time increases. But one interesting thing is that the "never divorce" and "divorce once" group sizes in Low education and Master level are almost the same. However, the "divorce twice" and ">3 time divorce" groups in Low education level are much larger than they are in Master level.
+The following part is a general summary of of the relationsip between marriage times and education levels. Here, education level is accounted as one's highest degree. In the first ballon figure, we can see that in every education level, those who have never divorced account for the largest portion. Also, the trend are the same: population decreases as the divorce time increases. But one interesting thing is that the "never divorce" and "divorce once" group sizes in Low education and Master level are almost the same. However, the "divorce twice" and ">3 time divorce" groups in Low education level are much larger than they are in Master level.
 
 ```{r Chencheng_JIANG's_part, echo=F, message=F, include=F}
 # data cleansing
@@ -81,11 +85,11 @@ for(i in 1:5){
 
 ```{r balloonplot, echo=T}
 # draw the balloonplot
-balloonplot(data = t(as.table(div_edu)), 
-            main ="Divorce and Education level", 
-            xlab ="Divorce", ylab="Education level",
-            dotsize = 8, text.size= 0.7, label = F, 
-            show.margins = FALSE)
+# balloonplot(data = t(as.table(div_edu)), 
+#            main ="Divorce and Education level", 
+#            xlab ="Divorce", ylab="Education level",
+#            dotsize = 8, text.size= 0.7, label = F, 
+#            show.margins = FALSE)
 ```
 
 ```{r sunburst_code, echo=F, message=F, include=F}
@@ -124,30 +128,21 @@ sunburst(sun_edu.fm,colors=cols)
 
 ```{r sunburst, echo=T}
 # add the link to the html
-
+htmltools::includeHTML("file:///Users/pengfeiwang/Desktop/1.html")
 ```
 
-###### For the sunburst fig, the innermost circle shows proportion of different divorce times, the middel circle shows the education level, and the outermost circle shows the major, whether it's STEM or not. As we can see, the never divorced group accounts for 64% of the total married people. For most of us, who are master of STEM students, stays in blue-light orange part. So we probably end up with never divorce or divorce once (never divorce 0.758%, divorce once 0.254%) but will never divorce more than twice
+For the sunburst fig, the innermost circle shows proportion of different divorce times, the middel circle shows the education level, and the outermost circle shows the major, whether it's STEM or not. As we can see, the never divorced group accounts for 64% of the total married people. For most of us, who are master of STEM students, stays in blue-light orange part. So we probably end up with never divorce or divorce once (never divorce 0.758%, divorce once 0.254%) but will never divorce more than twice
 
 
-## Useful data extraction
-<<<<<<< Updated upstream
+## You should get a normal job
 
-Read in the useful columns. 
-
-```{r, message=FALSE, warning=FALSE}
-# Minghao's Part
-=======
-```{r MinghaoDai's_Part, message=FALSE, warning=FALSE}
->>>>>>> Stashed changes
+```{r MinghaoDai's_’Part, message=FALSE, warning=FALSE}
 colstokeep_time <- c("MARHD", "MARHM", "JWAP", "JWDP", "SEX", "AEGP", "PERNP", "RAC1P", "ST")
 T1 <- fread('/Users/pengfeiwang/Desktop/Fall1/data/ss13pusa.csv', select = colstokeep_time, na.strings = c("bbb", "bbbbbbb"))
 T2 <- fread('/Users/pengfeiwang/Desktop/Fall1/data/ss13pusb.csv', select = colstokeep_time, na.strings = c("bbb", "bbbbbbb"))
 Tfull <- rbind(T1, T2)
 Tuse <- na.omit(Tfull)
 ```
-
-## Time of arrival at work and Sex
 
 ```{r, message=FALSE, warning=FALSE}
 Tuse$SEX <- as.factor(Tuse$SEX)
@@ -186,8 +181,6 @@ hour_sex_divorce <- ggplot(rate_arr, aes(x = factor(JWAP_h), y = drate, fill=SEX
 ```{r working_time, echo=T}
 hour_sex_divorce
 ```
-##### say something
-
 
 The number on the outer circle is the time arrival at work from 0 am to 23 pm, the height of each bar refers to the marriage/divorce rate in the two plots. 
 
@@ -220,11 +213,7 @@ earn_sex <- ggplot(rate_earn_transfer,
   theme(legend.justification=c(1,1), legend.position=c(1,1), 
         text = element_text(size=15))
 earn_sex
-
 ```
-# say something
-
-
 
 The x axis represents the personal earnings, the barplot above x axis refers to the marriage rate, and the below part refers to the divorce rate. 
 
@@ -271,42 +260,22 @@ The x axis is divorce rate, the y axis is marriage rate, the color refers to dif
 
 ## viz3
 
-### Kaisheng's Part
-
-#####Install Package and build environment.
-```{r setup, include=FALSE}
-library(data.table)
-library(readr)
-library(plyr)
-library(ggplot2)
-library(dplyr)
-library(foreach)
-library(gridExtra)
-```
 ##Read the data
-```{r}
+```{r KaishengWang's_Part, message=F}
 setwd("/Users/kaishengwang/Desktop/Applied\ Data\ Science\ Project/Project1/data")
 features <- c("MARHD", "MARHM", "PERNP", "PINCP", "AGEP", "SEX", "MAR")
 Data1 <- fread('ss13pusa.csv', select = features)
 Data2 <- fread('ss13pusb.csv', select = features)
 Data <- rbind(Data1, Data2)
-```
-
-##Data Manipulation
 #####Data clean, remove the unuseful data and plot the distribution of Income.
-```{r}
 Data <- na.omit(Data)
 remove(Data1)
 remove(Data2)
 Data <- subset(Data, MAR != 5)
-
 min(Data$PINCP)
-#-13600
 max(Data$PINCP)
-#1281000
 hist(Data$PINCP, xlab = "Income")
 ```
-
 
 #One way to classficate income group.
 #####Classficate income by 1/3 and 2/3 of income level.
