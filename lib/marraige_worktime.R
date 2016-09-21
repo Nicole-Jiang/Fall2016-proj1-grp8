@@ -30,20 +30,24 @@ rate_arr <- ddply(Tuse, .(JWAP_h, SEX), summarize,
 
 
 hour_sex_marry <- ggplot(rate_arr, aes(x = factor(JWAP_h), y = mrate, fill=SEX)) +
-  geom_bar(stat = "identity", position = "dodge")+  
+  geom_bar(stat = "identity", position = "dodge", alpha = 0.8)+  
   coord_polar(theta = "x", start = -0.13)+
-  xlab("Hour arrival at work") + ylab("Marriage rate")+
+  xlab("Time arrival at work") + ylab("Marriage rate")+
+  labs(title = "Marriage rate vs Time arrival at work (in hour)")+
   scale_fill_discrete(labels=c("Male", "Female"))+
-  theme(legend.justification=c(1,0), legend.position=c(1,0))
+  theme(legend.justification=c(1,0), legend.position=c(1,0), 
+        text = element_text(size=15))
 
 hour_sex_marry  
   
 hour_sex_divorce <- ggplot(rate_arr, aes(x = factor(JWAP_h), y = drate, fill=SEX)) +
-  geom_bar(stat = "identity", position = "dodge")+ 
+  geom_bar(stat = "identity", position = "dodge", alpha = 0.8)+ 
   coord_polar(theta = "x", start = -0.13)+
-  xlab("Hour arrival at work") + ylab("Divorce rate")+
+  xlab("Time arrival at work") + ylab("Divorce rate")+
+  labs(title = "Divorce rate vs Time arrival at work (in hour)")+
   scale_fill_discrete(labels=c("Male", "Female"))+
-  theme(legend.justification=c(1,0), legend.position=c(1,0))
+  theme(legend.justification=c(1,0), legend.position=c(1,0), 
+        text = element_text(size=15))
 
 hour_sex_divorce
 
@@ -78,12 +82,14 @@ rate_earn_transfer <- rbind(data.frame(type="marry", rate_earn[, c(1:3)], rate=r
                             data.frame(type="divorce", rate_earn[, c(1:3)], rate=-rate_earn[,4]))
 
 earn_sex <- ggplot(rate_earn_transfer, 
-  aes(x = earning, y = rate, group = SEX, fill = SEX)) +
-  geom_bar(stat = "identity", position = "dodge")+ 
+                   aes(x = earning, y = rate, group = SEX, fill = SEX)) +
+  geom_bar(stat = "identity", position = "dodge", alpha = 0.8)+ 
   geom_hline(yintercept = 0)+
   xlab("Total person's earnings (in 10k dollars)") + ylab("Marriage and Divorce rate")+
+  labs(title = "Marriage and Divorce rate vs Total person's earning (in $10k)")+
   scale_fill_discrete(labels=c("Male", "Female"))+
-  theme(legend.justification=c(1,1), legend.position=c(1,1))
+  theme(legend.justification=c(1,1), legend.position=c(1,1), 
+        text = element_text(size=15))
 earn_sex
 
 ###race region
