@@ -4,7 +4,7 @@
 Term: Fall 2016
 
 + Team #8
-+ Projec title: I Do...I Did...IM DONE!!
++ Projec title: I Do...I Did...I'M DONE!!
 + Team members
 	+ Kaisheng Wang (GitHub: CuteMarmot, UNI: kw2628)
 	+ Minghao Dai(GitHub: daisy0311, UNI:md3397)
