@@ -45,7 +45,6 @@ htmltools::includeHTML("file:///Users/pengfeiwang/Desktop/Fall2016-proj1-grp8/fi
 This choropleth encodes divorce rates per 1000 population for successive 12-monthe period from 2008 with a quantize scale ranging from 0 to 11%. As we can see, the divorce rate is continuously decreasing for almost half decade in every states. However, the absolute value remains at a high rate. 
 
 
-
 ## Does education matter?
 
 The following part is a general summary of of the relationsip between marriage times and education levels. Here, education level is accounted as one's highest degree. In the first ballon figure, we can see that in every education level, those who have never divorced account for the largest portion. Also, the trend are the same: population decreases as the divorce time increases. But one interesting thing is that the "never divorce" and "divorce once" group sizes in Low education and Master level are almost the same. However, the "divorce twice" and ">3 time divorce" groups in Low education level are much larger than they are in Master level.
@@ -61,7 +60,6 @@ data.fm$DIV=data.fm$MARHT-1
 data.fm$DIV[data.fm$MSP==4]=data.fm$DIV[data.fm$MSP==4]+1
 data.fm[is.na(data.fm)] <- 0
 
-#####################################################
 # education level calculation
 lowedu= subset(data.fm, SCHL<=15) #lower than high school
 highschool= subset(data.fm, SCHL>= 16 & SCHL<= 20) #including high school, GED, Associate's degree or enter the college without degree
@@ -70,7 +68,6 @@ master= subset(data.fm, SCHL==22| SCHL ==23) #including master and professional 
 phd= subset(data.fm, SCHL==24)
 data_edu= list(lowedu,highschool,bachelor, master, phd)
 
-#####################################################
 # generate marry-education matrix
 div_edu= matrix(nrow=5,ncol=4)
 rownames(div_edu) <- c("Low education", "High school", "Bachelor", "Master", "PhD")
@@ -80,23 +77,14 @@ for(i in 1:5){
     div_edu[i,j]= nrow(subset(data_edu[[i]],DIV == j-1))
   }
 }
-
 ```
 
-```{r balloonplot, echo=T}
-# draw the balloonplot
-# balloonplot(data = t(as.table(div_edu)), 
-#            main ="Divorce and Education level", 
-#            xlab ="Divorce", ylab="Education level",
-#            dotsize = 8, text.size= 0.7, label = F, 
-#            show.margins = FALSE)
-```
 
 ```{r sunburst_code, echo=F, message=F, include=F}
 # draw the sunburst plot
 edu= subset(data.fm, select= c("DIV","SCHL","SCIENGRLP"))
 edu[,1]= sapply(edu[,1], paste, "time(s)")
-edu_test= edu ## mark ##
+edu_test= edu 
 for(i in 1:nrow(edu_test)){
   if(edu_test[i,2]<15){
     edu_test[i,2]="Lowedu"
@@ -128,13 +116,13 @@ sunburst(sun_edu.fm,colors=cols)
 
 ```{r sunburst, echo=T}
 # add the link to the html
-htmltools::includeHTML("file:///Users/pengfeiwang/Desktop/1.html")
+htmltools::includeHTML("file:///Users/pengfeiwang/Desktop/Fall2016-proj1-grp8/figs/Sunburst.html")
 ```
 
 For the sunburst fig, the innermost circle shows proportion of different divorce times, the middel circle shows the education level, and the outermost circle shows the major, whether it's STEM or not. As we can see, the never divorced group accounts for 64% of the total married people. For most of us, who are master of STEM students, stays in blue-light orange part. So we probably end up with never divorce or divorce once (never divorce 0.758%, divorce once 0.254%) but will never divorce more than twice
 
 
-## You should get a normal job
+## You should get a "normal" job !!
 
 ```{r MinghaoDai's_’Part, message=FALSE, warning=FALSE}
 colstokeep_time <- c("MARHD", "MARHM", "JWAP", "JWDP", "SEX", "AEGP", "PERNP", "RAC1P", "ST")
@@ -154,18 +142,6 @@ Tuse$JWAP_h <- ifelse(Tuse$JWAP %in% c(1:10), 0,
 findrate <- function(x) sum(x==1)/length(x)
 rate_arr <- ddply(Tuse, .(JWAP_h, SEX), summarize, 
             n = length(MARHD), drate = findrate(MARHD), mrate = findrate(MARHM))
-
-
-hour_sex_marry <- ggplot(rate_arr, aes(x = factor(JWAP_h), y = mrate, fill=SEX)) +
-  geom_bar(stat = "identity", position = "dodge", alpha = 0.8)+  
-  coord_polar(theta = "x", start = -0.13)+
-  xlab("Time arrival at work") + ylab("Marriage rate")+
-  labs(title = "Marriage rate vs Time arrival at work (in hour)")+
-  scale_fill_discrete(labels=c("Male", "Female"))+
-  theme(legend.justification=c(1,0), legend.position=c(1,0), 
-        text = element_text(size=15))
-
-# hour_sex_marry  
   
 hour_sex_divorce <- ggplot(rate_arr, aes(x = factor(JWAP_h), y = drate, fill=SEX)) +
   scale_color_manual(values=wes_palette(n=2, name="GrandBudapest"))+
@@ -212,6 +188,9 @@ earn_sex <- ggplot(rate_earn_transfer,
   scale_fill_discrete(labels=c("Male", "Female"))+
   theme(legend.justification=c(1,1), legend.position=c(1,1), 
         text = element_text(size=15))
+```
+
+```{r, echo=T}
 earn_sex
 ```
 
