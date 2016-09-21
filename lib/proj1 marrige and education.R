@@ -61,7 +61,7 @@ library(stringr)
 
 edu= subset(data.fm, select= c("DIV","SCHL","SCIENGRLP"))
 edu[,1]= sapply(edu[,1], paste, "time(s)")
-edu_test= edu ### 数据量太大，先跑50000行，之后再说吧
+edu_test= edu[sample(nrow(edu),100000,replace = F),] 
 for(i in 1:nrow(edu_test)){
   if(edu_test[i,2]<15){
     edu_test[i,2]="Lowedu"
