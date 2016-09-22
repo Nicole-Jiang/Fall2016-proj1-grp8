@@ -12,6 +12,10 @@ Term: Fall 2016
 	+ Pengfei Wang（GitHub: PengfeiWangWZ, UNI: pw2406)
 	
 + Project summary: This is a comprehensive overview of divorce-related characteristics in ACS dataset. We focused on the divorce rate by states, the relatitionship with education level, working hours, gender, age and races. Our analysis presents a clear view of how dicorces and dicorvce rate related to above factors.
+
++ Code:[Click Here!](https://github.com/TZstatsADS/Fall2016-proj1-grp8/blob/master/doc/Presentation.Rmd) 
+
++ Report:[Click Here!](https://github.com/TZstatsADS/Fall2016-proj1-grp8/blob/master/doc/Presentation.html)
 	
 **Contribution statement**: ([default](doc/a_note_on_contributions.md)) All team members contributed equally in all stages of this project. All team members approve our work presented in this GitHub repository including this contributions statement. 
 
