@@ -65,8 +65,9 @@ data.fm$DIV[data.fm$MSP==4]=data.fm$DIV[data.fm$MSP==4]+1
 data.fm[is.na(data.fm)] <- 0
 
 # education level calculation
-lowedu= subset(data.fm, SCHL<=15) #lower than high school
-highschool= subset(data.fm, SCHL>= 16 & SCHL<= 20) #including high school, GED, Associate's degree or enter the college without degree
+lowedu= subset(data.fm, SCHL<=15) 
+# including high school, GED, Associate's degree or enter the college without degree
+highschool= subset(data.fm, SCHL>= 16 & SCHL<= 20) 
 bachelor= subset(data.fm, SCHL==21) 
 master= subset(data.fm, SCHL==22| SCHL ==23) #including master and professional degree
 phd= subset(data.fm, SCHL==24)
@@ -103,7 +104,7 @@ for(i in 1:nrow(edu_test)){
   }
 }
 
-#prepare for the sunburst plot
+# prepare for the sunburst plot
 edu.seq <- seqdef(edu_test)
 sun_edu=seqtab(edu.seq, tlim = 0, format = "STS" )
 name=names(attributes(as.list(sun_edu))$weights)
@@ -131,8 +132,10 @@ For the sunburst fig, the innermost circle shows proportion of different divorce
 
 ```{r MinghaoDai's_’Part, message=FALSE, warning=FALSE}
 colstokeep_time <- c("MARHD", "MARHM", "JWAP", "JWDP", "SEX", "AEGP", "PERNP", "RAC1P", "ST")
-T1 <- fread('/Users/pengfeiwang/Desktop/Fall1/data/ss13pusa.csv', select = colstokeep_time, na.strings = c("bbb", "bbbbbbb"))
-T2 <- fread('/Users/pengfeiwang/Desktop/Fall1/data/ss13pusb.csv', select = colstokeep_time, na.strings = c("bbb", "bbbbbbb"))
+T1 <- fread('/Users/pengfeiwang/Desktop/Fall1/data/ss13pusa.csv', select = colstokeep_time, 
+            na.strings = c("bbb", "bbbbbbb"))
+T2 <- fread('/Users/pengfeiwang/Desktop/Fall1/data/ss13pusb.csv', select = colstokeep_time, 
+            na.strings = c("bbb", "bbbbbbb"))
 Tfull <- rbind(T1, T2)
 Tuse <- na.omit(Tfull)
 ```
@@ -141,12 +144,11 @@ Tuse <- na.omit(Tfull)
 Tuse$SEX <- as.factor(Tuse$SEX)
 
 Tuse$JWAP_h <- ifelse(Tuse$JWAP %in% c(1:10), 0, 
-                      ifelse(Tuse$JWAP %in% c(11,21), 1, 
-                             ((Tuse$JWAP-22) %/% 12) + 2))
+               ifelse(Tuse$JWAP %in% c(11,21), 1, ((Tuse$JWAP-22) %/% 12) + 2))
 
 findrate <- function(x) sum(x==1)/length(x)
 rate_arr <- ddply(Tuse, .(JWAP_h, SEX), summarize, 
-            n = length(MARHD), drate = findrate(MARHD), mrate = findrate(MARHM))
+                  n = length(MARHD), drate = findrate(MARHD), mrate = findrate(MARHM))
   
 hour_sex_divorce <- ggplot(rate_arr, aes(x = factor(JWAP_h), y = drate, fill=SEX)) +
   scale_color_manual(values=wes_palette(n=2, name="GrandBudapest"))+
@@ -180,7 +182,7 @@ Tuse$earning <- ifelse(Tuse$PERNP %in% c(-9000:0), 0,
 Tuse$earning <- factor(Tuse$earning, levels=c(as.character(0:10), "10-50", "50+"))
 
 rate_earn <- ddply(Tuse, .(earning, SEX), summarize, 
-                  n = length(MARHD), drate = findrate(MARHD), mrate = findrate(MARHM))
+                   n = length(MARHD), drate = findrate(MARHD), mrate = findrate(MARHM))
 
 rate_earn_transfer <- rbind(data.frame(type="marry", rate_earn[, c(1:3)], rate=rate_earn[,5]),
                             data.frame(type="divorce", rate_earn[, c(1:3)], rate=-rate_earn[,4]))
@@ -199,6 +201,8 @@ earn_sex <- ggplot(rate_earn_transfer,
 ```{r, echo=T}
 earn_sex
 ```
+![earn_sex](https://github.com/TZstatsADS/Fall2016-proj1-grp8/blob/master/figs/earn_sex.png)
+
 
 The x axis represents the personal earnings, the barplot above x axis refers to the marriage rate, and the below part refers to the divorce rate. 
 
@@ -215,22 +219,22 @@ Tuse$race <- as.factor(ifelse(Tuse$RAC1P %in% c(1,2,6,9), Tuse$RAC1P,
              ifelse(Tuse$RAC1P %in% c(3,4,5), 3, 7)))
 
 levels(Tuse$race) <- c("White", "Black or African American", 
-                "American Indian or Alaska Native", "Asian", "Some Other Race", 
-                "Two or More Races")
+                       "American Indian or Alaska Native", "Asian", "Some Other Race", 
+                       "Two or More Races")
 
 Tuse$state <- as.factor(ifelse(Tuse$ST == 11, 24, Tuse$ST))
 
 levels(Tuse$state) <- state.region
 
-rate_race <- ddply(Tuse, .(race, state), summarize, 
-             n = length(MARHD), drate = findrate(MARHD), mrate = findrate(MARHM))
+rate_race <- ddply(Tuse, .(race, state), summarize, n = length(MARHD), 
+                   drate = findrate(MARHD), mrate = findrate(MARHM))
 rate_race$"sq_n" <- sqrt(rate_race$n)
 names(rate_race)[4] <- "divorce_rate"
 names(rate_race)[5] <- "marriage_rate"
 
 
 p <- plot_ly(rate_race, x = divorce_rate, y = marriage_rate, text = paste("Division: ", state), 
-        mode = "markers", color = race, size = sq_n)
+             mode = "markers", color = race, size = sq_n)
 p %>% layout(legend = list(x = 0, y = 1))
 
 ```
@@ -252,7 +256,7 @@ features <- c("MARHD", "MARHM", "PERNP", "PINCP", "AGEP", "SEX", "MAR")
 Data1 <- fread('ss13pusa.csv', select = features)
 Data2 <- fread('ss13pusb.csv', select = features)
 Data <- rbind(Data1, Data2)
-#####Data clean, remove the unuseful data and plot the distribution of Income.
+# Data clean, remove the unuseful data and plot the distribution of Income.
 Data <- na.omit(Data)
 remove(Data1)
 remove(Data2)
@@ -272,13 +276,13 @@ Data$SEX <- as.factor(Data$SEX)
 ```{r}
 Income_sort <- sort(Data$PINCP)
 Data$Income <- ifelse(Data$PINCP < 35000, "Low",
-                      ifelse(Data$PINCP %in% c(35000:75000), "Lower Mid",
-                             ifelse(Data$PINCP %in% c(75000: 100000), "Mid",
-                                    ("Upper Mid"))))
+               ifelse(Data$PINCP %in% c(35000:75000), "Lower Mid",
+               ifelse(Data$PINCP %in% c(75000: 100000), "Mid", ("Upper Mid"))))
 ```
 
 ```{r}
-Data_Income_Divrate <- ddply(Data, .(Income), summarise, n = length(MARHD), Div_rate = (sum(MAR == 3) + sum(MAR == 4))/length(MAR))
+Data_Income_Divrate <- ddply(Data, .(Income), summarise, n = length(MARHD), 
+                             Div_rate = (sum(MAR == 3) + sum(MAR == 4))/length(MAR))
 
 Income_Divrate<- ggplot(Data_Income_Divrate, aes(x = factor(Income), y = Div_rate, fill = Income)) + 
                      geom_bar(stat = "identity", position = "dodge") + 
@@ -293,7 +297,8 @@ From the plot, we can know that the low-income and mid-income groups have almost
 ## The Gender 
 
 ```{r}
-Data_Income_Divrate_sex <- ddply(Data, .(Income, SEX), summarise, n = length(MARHD), Div_rate = (sum(MAR == 3) + sum(MAR == 4))/length(MAR))
+Data_Income_Divrate_sex <- ddply(Data, .(Income, SEX), summarise, n = length(MARHD), 
+                                 Div_rate = (sum(MAR == 3) + sum(MAR == 4))/length(MAR))
 
 Income_sex_Divrate<- ggplot(Data_Income_Divrate_sex, aes(x = factor(Income), y = Div_rate, fill = SEX)) + 
                      geom_bar(stat = "identity", position = "dodge") + 
@@ -308,11 +313,11 @@ The results are very interesting!!! In the group of low-income, the divorce rate
 ## As for the effect of Agegroup
 ```{r}
 Data$Agegroup <- ifelse(Data$AGEP < 30, "less than 30",
-                        ifelse(Data$AGEP %in% c(30:40), "30 to 40",
-                               ifelse(Data$AGEP %in% c(40:50), "40 to 50",
-                                      ifelse(Data$AGEP %in% c(50:60), "50 to 60",
-                                             ("Large than 60")))))
-Data_Income_Divrate_age <- ddply(Data, .(Income, Agegroup), summarise, n = length(MARHD), Div_rate = (sum(MAR == 3) + sum(MAR == 4))/length(MAR))
+                 ifelse(Data$AGEP %in% c(30:40), "30 to 40",
+                 ifelse(Data$AGEP %in% c(40:50), "40 to 50",
+                 ifelse(Data$AGEP %in% c(50:60), "50 to 60", ("Large than 60")))))
+Data_Income_Divrate_age <- ddply(Data, .(Income, Agegroup), summarise, n = length(MARHD), 
+                                 Div_rate = (sum(MAR == 3) + sum(MAR == 4))/length(MAR))
 Income_age_Divrate<- ggplot(Data_Income_Divrate_age, aes(x = factor(Income), y = Div_rate, fill = Agegroup)) + 
                       geom_bar(stat = "identity", position = "dodge") + 
                       coord_polar(theta = "x") + 
