@@ -49,7 +49,7 @@ htmltools::includeHTML("https://github.com/TZstatsADS/Fall2016-proj1-grp8/blob/m
 This choropleth encodes divorce rates per 1000 population for successive 12-monthe period from 2008 with a quantize scale ranging from 0 to 11%. As we can see, the divorce rate is continuously decreasing for almost half decade in every states. However, the absolute value remains at a high rate. 
 
 
-## Does education matter?
+## Does education matter ?
 
 The following part is a general summary of of the relationsip between marriage times and education levels. Here, education level is accounted as one's highest degree. In the first ballon figure, we can see that in every education level, those who have never divorced account for the largest portion. Also, the trend are the same: population decreases as the divorce time increases. But one interesting thing is that the "never divorce" and "divorce once" group sizes in Low education and Master level are almost the same. However, the "divorce twice" and ">3 time divorce" groups in Low education level are much larger than they are in Master level.
 
@@ -213,7 +213,7 @@ The x axis represents the personal earnings, the barplot above x axis refers to 
 - The men with lower earnings (10k - 30k) are more likely to marry than a women with same earnings. This may imply that women don't look down on men who have lower earning, and at the same time, the men with lower earning have more free time and they are more likely to find a partner and get married
 
 
-## What about Race and Region
+## What about Race and Region ?
 ```{r, message=FALSE, warning=FALSE}
 Tuse$race <- as.factor(ifelse(Tuse$RAC1P %in% c(1,2,6,9), Tuse$RAC1P, 
              ifelse(Tuse$RAC1P %in% c(3,4,5), 3, 7)))
@@ -238,6 +238,11 @@ p <- plot_ly(rate_race, x = divorce_rate, y = marriage_rate, text = paste("Divis
 p %>% layout(legend = list(x = 0, y = 1))
 
 ```
+
+```{r viz, echo=T}
+htmltools::includeHTML("https://github.com/TZstatsADS/Fall2016-proj1-grp8/blob/master/figs/race%20and%20region.html")
+```
+
 ![Race and Region](https://github.com/TZstatsADS/Fall2016-proj1-grp8/blob/master/figs/race.png)
 
 The x axis is divorce rate, the y axis is marriage rate, the color refers to different races, the size of the bubbles is proportional to square root of sample size in each category, and we also investigate different region effects. 
@@ -294,7 +299,7 @@ Income_Divrate<- ggplot(Data_Income_Divrate, aes(x = factor(Income), y = Div_rat
 From the plot, we can know that the low-income and mid-income groups have almost the same divorce rate but the high-income have the lower dicorce rate.
 
 
-## The Gender 
+## The Gender effect
 
 ```{r}
 Data_Income_Divrate_sex <- ddply(Data, .(Income, SEX), summarise, n = length(MARHD), 
